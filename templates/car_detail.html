@@ -1,0 +1,896 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>{{ car.brand }} {{ car.model_name }} | KB MOTOR</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f5f2;
+            color: #151515;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        nav {
+            height: 82px;
+            padding: 0 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: rgba(255,255,255,.92);
+
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid #e7e7e3;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #b28a45;
+        }
+
+        .back {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            color: #555;
+
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .5px;
+
+            transition: .3s;
+        }
+
+        .back:hover {
+            color: #b28a45;
+            transform: translateX(-4px);
+        }
+
+
+        /* ==============================
+           MAIN
+        ============================== */
+
+        .detail {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 70px 30px 100px;
+
+            display: grid;
+
+            grid-template-columns: 1.15fr .85fr;
+
+            gap: 65px;
+
+            align-items: start;
+        }
+
+
+        /* ==============================
+           IMAGE
+        ============================== */
+
+        .image-wrapper {
+            position: sticky;
+            top: 120px;
+        }
+
+        .image-box {
+            height: 570px;
+
+            background: #e9e9e5;
+
+            overflow: hidden;
+
+            border-radius: 4px;
+
+            position: relative;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition: transform .7s ease;
+        }
+
+        .image-box:hover img {
+            transform: scale(1.035);
+        }
+
+        .image-label {
+            position: absolute;
+
+            top: 20px;
+            left: 20px;
+
+            padding: 9px 14px;
+
+            background: rgba(255,255,255,.92);
+
+            color: #171717;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            font-weight: 700;
+
+            border-radius: 2px;
+        }
+
+
+        /* ==============================
+           DETAILS
+        ============================== */
+
+        .car-content {
+            padding-top: 8px;
+        }
+
+        .eyebrow {
+            color: #b28a45;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+        }
+
+        .brand {
+            color: #777;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-family: "Playfair Display", serif;
+
+            font-size: clamp(48px, 5vw, 76px);
+
+            line-height: .98;
+
+            font-weight: 600;
+
+            color: #141414;
+
+            margin-bottom: 22px;
+        }
+
+        .price-label {
+            color: #777;
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 4px;
+        }
+
+        .price {
+            font-size: 31px;
+
+            font-weight: 700;
+
+            color: #161616;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* ==============================
+           DIVIDER
+        ============================== */
+
+        .divider {
+            height: 1px;
+
+            background: #deded9;
+
+            margin: 28px 0;
+        }
+
+
+        /* ==============================
+           SPECS
+        ============================== */
+
+        .specs {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            border-top: 1px solid #deded9;
+            border-left: 1px solid #deded9;
+
+            margin-bottom: 30px;
+        }
+
+        .spec {
+            min-height: 88px;
+
+            padding: 18px 20px;
+
+            background: #ffffff;
+
+            border-right: 1px solid #deded9;
+            border-bottom: 1px solid #deded9;
+
+            transition: .3s;
+        }
+
+        .spec:hover {
+            background: #fafaf8;
+        }
+
+        .spec small {
+            display: block;
+
+            color: #8b8b86;
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 8px;
+        }
+
+        .spec-value {
+            color: #202020;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        /* ==============================
+           DESCRIPTION
+        ============================== */
+
+        .description-title {
+            font-family: "Playfair Display", serif;
+
+            font-size: 24px;
+
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.9;
+
+            margin-bottom: 28px;
+        }
+
+
+        /* ==============================
+           WHATSAPP ENQUIRY
+        ============================== */
+
+        .enquiry-box {
+            padding: 25px;
+
+            background: #171717;
+
+            border-radius: 3px;
+
+            color: white;
+
+            margin-top: 30px;
+        }
+
+        .enquiry-box-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 17px;
+        }
+
+        .enquiry-title {
+            font-family: "Playfair Display", serif;
+
+            font-size: 23px;
+        }
+
+        .whatsapp-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #555;
+
+            border-radius: 50%;
+
+            font-size: 17px;
+        }
+
+        .enquiry-text {
+            color: #aaa;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            margin-bottom: 20px;
+        }
+
+        .enquire {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            width: 100%;
+
+            padding: 16px 20px;
+
+            background: #b28a45;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            transition: .3s;
+
+            border: none;
+
+            cursor: pointer;
+        }
+
+        .enquire:hover {
+            background: #c69d59;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ==============================
+           TRUST INFO
+        ============================== */
+
+        .trust-row {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+        .trust-item {
+            padding: 15px 10px;
+
+            background: #eeeee9;
+
+            text-align: center;
+
+            color: #666;
+
+            font-size: 10px;
+
+            line-height: 1.5;
+
+            letter-spacing: .5px;
+        }
+
+        .trust-item strong {
+            display: block;
+
+            color: #222;
+
+            font-size: 11px;
+
+            margin-bottom: 3px;
+        }
+
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+            padding: 35px 7%;
+
+            background: #171717;
+
+            color: #777;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            font-size: 11px;
+        }
+
+        footer .footer-logo {
+            font-family: "Playfair Display", serif;
+
+            color: white;
+
+            font-size: 22px;
+
+            letter-spacing: 2px;
+        }
+
+        footer .footer-logo span {
+            color: #b28a45;
+        }
+
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media(max-width: 950px) {
+
+            .detail {
+                grid-template-columns: 1fr;
+
+                gap: 45px;
+            }
+
+            .image-wrapper {
+                position: relative;
+                top: auto;
+            }
+
+            .image-box {
+                height: 500px;
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            nav {
+                height: 72px;
+
+                padding: 0 6%;
+            }
+
+            .logo {
+                font-size: 23px;
+            }
+
+            .back {
+                font-size: 11px;
+            }
+
+            .detail {
+                padding: 40px 18px 70px;
+            }
+
+            .image-box {
+                height: 340px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            .price {
+                font-size: 27px;
+            }
+
+            .specs {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-row {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 12px;
+
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+     NAVBAR
+============================== -->
+
+<nav>
+
+    <a href="/" class="logo">
+        KB <span>MOTOR</span>
+    </a>
+
+    <a href="/" class="back">
+        ← BACK TO COLLECTION
+    </a>
+
+</nav>
+
+
+
+<!-- ==============================
+     CAR DETAIL
+============================== -->
+
+<main class="detail">
+
+
+    <!-- IMAGE -->
+
+    <div class="image-wrapper">
+
+        <div class="image-box">
+
+            <div class="image-label">
+                KB MOTOR COLLECTION
+            </div>
+
+            {% if car.image %}
+
+                <img
+                    src="{{ car.image.url }}"
+                    alt="{{ car.brand }} {{ car.model_name }}"
+                >
+
+            {% else %}
+
+                <img
+                    src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
+                    alt="KB MOTOR"
+                >
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- INFORMATION -->
+
+    <div class="car-content">
+
+
+        <div class="eyebrow">
+            PREMIUM VEHICLE
+        </div>
+
+
+        <div class="brand">
+            {{ car.brand }}
+        </div>
+
+
+        <h1>
+            {{ car.model_name }}
+        </h1>
+
+
+        <div class="price-label">
+            STARTING PRICE
+        </div>
+
+
+        <div class="price">
+            ₹{{ car.price|floatformat:0 }}
+        </div>
+
+
+
+        <!-- SPECIFICATIONS -->
+
+        <div class="specs">
+
+
+            <div class="spec">
+
+                <small>YEAR</small>
+
+                <div class="spec-value">
+                    {{ car.year }}
+                </div>
+
+            </div>
+
+
+            <div class="spec">
+
+                <small>FUEL TYPE</small>
+
+                <div class="spec-value">
+                    {{ car.fuel_type }}
+                </div>
+
+            </div>
+
+
+            <div class="spec">
+
+                <small>BODY STYLE</small>
+
+                <div class="spec-value">
+                    {{ car.body_type }}
+                </div>
+
+            </div>
+
+
+            <div class="spec">
+
+                <small>TRANSMISSION</small>
+
+                <div class="spec-value">
+                    {{ car.transmission }}
+                </div>
+
+            </div>
+
+
+            <div class="spec">
+
+                <small>MILEAGE / RANGE</small>
+
+                <div class="spec-value">
+
+                    {% if car.fuel_type == "Electric" %}
+                        {{ car.mileage }} KM
+                    {% else %}
+                        {{ car.mileage }} KM/L
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="spec">
+
+                <small>ENGINE / MOTOR</small>
+
+                <div class="spec-value">
+                    {{ car.engine }}
+                </div>
+
+            </div>
+
+
+            <div class="spec">
+
+                <small>SEATING</small>
+
+                <div class="spec-value">
+                    {{ car.seats }} Seats
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- DESCRIPTION -->
+
+        {% if car.description %}
+
+            <div class="description-title">
+                About this vehicle
+            </div>
+
+            <div class="description">
+                {{ car.description }}
+            </div>
+
+        {% endif %}
+
+
+
+        <!-- WHATSAPP -->
+
+        <div class="enquiry-box">
+
+
+            <div class="enquiry-box-top">
+
+                <div class="enquiry-title">
+                    Interested in this car?
+                </div>
+
+                <div class="whatsapp-icon">
+                    WA
+                </div>
+
+            </div>
+
+
+            <div class="enquiry-text">
+
+                Connect with KB MOTOR directly on WhatsApp.
+                Your vehicle details will be included automatically
+                so our team can assist you faster.
+
+            </div>
+
+
+            <a
+                class="enquire"
+                target="_blank"
+                href="https://wa.me/919315908281?text=Hello%20KB%20MOTOR%2C%0A%0AI%20am%20interested%20in%20the%20following%20vehicle%3A%0A%0ABrand%3A%20{{ car.brand|urlencode }}%0AModel%3A%20{{ car.model_name|urlencode }}%0AYear%3A%20{{ car.year|urlencode }}%0AFuel%20Type%3A%20{{ car.fuel_type|urlencode }}%0ABody%20Style%3A%20{{ car.body_type|urlencode }}%0ATransmission%3A%20{{ car.transmission|urlencode }}%0APrice%3A%20%E2%82%B9{{ car.price|floatformat:0|urlencode }}%0A%0APlease%20share%20more%20information%20about%20this%20vehicle.%0A%0AThank%20you."
+            >
+
+                <span>WHATSAPP</span>
+
+                <span>→</span>
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- TRUST -->
+
+        <div class="trust-row">
+
+            <div class="trust-item">
+
+                <strong>VERIFIED LISTING</strong>
+
+                Vehicle information
+
+            </div>
+
+
+            <div class="trust-item">
+
+                <strong>DIRECT ENQUIRY</strong>
+
+                Connect with KB MOTOR
+
+            </div>
+
+
+            <div class="trust-item">
+
+                <strong>DOCUMENTATION</strong>
+
+                Purchase assistance
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- ==============================
+     FOOTER
+============================== -->
+
+<footer>
+
+    <div class="footer-logo">
+        KB <span>MOTOR</span>
+    </div>
+
+    <div>
+        © 2026 KB MOTOR · PREMIUM AUTOMOTIVE EXPERIENCE
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>
+```
