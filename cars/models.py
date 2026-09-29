@@ -73,11 +73,7 @@ class Car(models.Model):
         blank=True
     )
 
-    image = models.ImageField(
-        upload_to='cars/',
-        blank=True,
-        null=True
-    )
+    image_url = models.URLField(blank=True, null=True)
 
     is_available = models.BooleanField(
         default=True
