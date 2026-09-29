@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,15 +14,11 @@
     <title>{{ car.brand }} {{ car.model_name }} | KB MOTOR</title>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
         rel="stylesheet"
     >
 
     <style>
-
-        /* ==============================
-           RESET
-        ============================== */
 
         * {
             margin: 0;
@@ -46,9 +42,7 @@
         }
 
 
-        /* ==============================
-           NAVBAR
-        ============================== */
+        /* NAVBAR */
 
         nav {
             height: 82px;
@@ -101,19 +95,15 @@
         }
 
 
-        /* ==============================
-           MAIN
-        ============================== */
+        /* MAIN */
 
         .detail {
             max-width: 1250px;
-
             margin: auto;
 
             padding: 70px 30px 100px;
 
             display: grid;
-
             grid-template-columns: 1.15fr .85fr;
 
             gap: 65px;
@@ -122,9 +112,7 @@
         }
 
 
-        /* ==============================
-           IMAGE
-        ============================== */
+        /* IMAGE */
 
         .image-wrapper {
             position: sticky;
@@ -148,6 +136,8 @@
             height: 100%;
 
             object-fit: cover;
+
+            display: block;
 
             transition: transform .7s ease;
         }
@@ -175,12 +165,12 @@
             font-weight: 700;
 
             border-radius: 2px;
+
+            z-index: 2;
         }
 
 
-        /* ==============================
-           DETAILS
-        ============================== */
+        /* CONTENT */
 
         .car-content {
             padding-top: 8px;
@@ -251,22 +241,7 @@
         }
 
 
-        /* ==============================
-           DIVIDER
-        ============================== */
-
-        .divider {
-            height: 1px;
-
-            background: #deded9;
-
-            margin: 28px 0;
-        }
-
-
-        /* ==============================
-           SPECS
-        ============================== */
+        /* SPECS */
 
         .specs {
             display: grid;
@@ -319,9 +294,7 @@
         }
 
 
-        /* ==============================
-           DESCRIPTION
-        ============================== */
+        /* DESCRIPTION */
 
         .description-title {
             font-family: "Playfair Display", serif;
@@ -342,9 +315,7 @@
         }
 
 
-        /* ==============================
-           WHATSAPP ENQUIRY
-        ============================== */
+        /* WHATSAPP */
 
         .enquiry-box {
             padding: 25px;
@@ -403,7 +374,6 @@
             display: flex;
 
             align-items: center;
-
             justify-content: center;
 
             gap: 10px;
@@ -436,9 +406,7 @@
         }
 
 
-        /* ==============================
-           TRUST INFO
-        ============================== */
+        /* TRUST */
 
         .trust-row {
             display: grid;
@@ -477,9 +445,7 @@
         }
 
 
-        /* ==============================
-           FOOTER
-        ============================== */
+        /* FOOTER */
 
         footer {
             padding: 35px 7%;
@@ -512,9 +478,7 @@
         }
 
 
-        /* ==============================
-           RESPONSIVE
-        ============================== */
+        /* TABLET */
 
         @media(max-width: 950px) {
 
@@ -526,6 +490,7 @@
 
             .image-wrapper {
                 position: relative;
+
                 top: auto;
             }
 
@@ -535,6 +500,8 @@
 
         }
 
+
+        /* MOBILE */
 
         @media(max-width: 600px) {
 
@@ -594,9 +561,7 @@
 <body>
 
 
-<!-- ==============================
-     NAVBAR
-============================== -->
+<!-- NAVBAR -->
 
 <nav>
 
@@ -612,9 +577,7 @@
 
 
 
-<!-- ==============================
-     CAR DETAIL
-============================== -->
+<!-- CAR DETAIL -->
 
 <main class="detail">
 
@@ -629,10 +592,15 @@
                 KB MOTOR COLLECTION
             </div>
 
-            {% if car.image %}
+
+            <!-- IMPORTANT:
+                 We are using image_url, NOT car.image
+            -->
+
+            {% if car.image_url %}
 
                 <img
-                    src="{{ car.image.url }}"
+                    src="{{ car.image_url }}"
                     alt="{{ car.brand }} {{ car.model_name }}"
                 >
 
@@ -640,10 +608,11 @@
 
                 <img
                     src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1400&q=85"
-                    alt="KB MOTOR"
+                    alt="{{ car.brand }} {{ car.model_name }}"
                 >
 
             {% endif %}
+
 
         </div>
 
@@ -733,14 +702,24 @@
 
             <div class="spec">
 
-                <small>MILEAGE / RANGE</small>
+                <small>
+                    {% if car.fuel_type == "Electric" %}
+                        RANGE
+                    {% else %}
+                        MILEAGE
+                    {% endif %}
+                </small>
 
                 <div class="spec-value">
 
                     {% if car.fuel_type == "Electric" %}
+
                         {{ car.mileage }} KM
+
                     {% else %}
+
                         {{ car.mileage }} KM/L
+
                     {% endif %}
 
                 </div>
@@ -750,7 +729,13 @@
 
             <div class="spec">
 
-                <small>ENGINE / MOTOR</small>
+                <small>
+                    {% if car.fuel_type == "Electric" %}
+                        MOTOR
+                    {% else %}
+                        ENGINE
+                    {% endif %}
+                </small>
 
                 <div class="spec-value">
                     {{ car.engine }}
@@ -790,10 +775,9 @@
 
 
 
-        <!-- WHATSAPP -->
+        <!-- WHATSAPP ENQUIRY -->
 
         <div class="enquiry-box">
-
 
             <div class="enquiry-box-top">
 
@@ -820,6 +804,7 @@
             <a
                 class="enquire"
                 target="_blank"
+                rel="noopener noreferrer"
                 href="https://wa.me/919315908281?text=Hello%20KB%20MOTOR%2C%0A%0AI%20am%20interested%20in%20the%20following%20vehicle%3A%0A%0ABrand%3A%20{{ car.brand|urlencode }}%0AModel%3A%20{{ car.model_name|urlencode }}%0AYear%3A%20{{ car.year|urlencode }}%0AFuel%20Type%3A%20{{ car.fuel_type|urlencode }}%0ABody%20Style%3A%20{{ car.body_type|urlencode }}%0ATransmission%3A%20{{ car.transmission|urlencode }}%0APrice%3A%20%E2%82%B9{{ car.price|floatformat:0|urlencode }}%0A%0APlease%20share%20more%20information%20about%20this%20vehicle.%0A%0AThank%20you."
             >
 
@@ -837,6 +822,7 @@
         <!-- TRUST -->
 
         <div class="trust-row">
+
 
             <div class="trust-item">
 
@@ -864,18 +850,18 @@
 
             </div>
 
+
         </div>
 
 
     </div>
 
+
 </main>
 
 
 
-<!-- ==============================
-     FOOTER
-============================== -->
+<!-- FOOTER -->
 
 <footer>
 
