@@ -1,0 +1,447 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | KB MOTORS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "DM Sans", sans-serif;
+            background:
+                linear-gradient(
+                    rgba(8, 10, 15, 0.78),
+                    rgba(8, 10, 15, 0.92)
+                ),
+                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=85");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #fff;
+            padding: 25px;
+        }
+
+        /* DARK OVERLAY */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(214, 168, 92, 0.10),
+                    transparent 35%
+                );
+            pointer-events: none;
+        }
+
+        /* LOGIN CARD */
+
+        .login-card {
+            position: relative;
+            width: 100%;
+            max-width: 430px;
+
+            background: rgba(17, 20, 27, 0.94);
+
+            border: 1px solid rgba(214, 168, 92, 0.28);
+            border-radius: 20px;
+
+            padding: 42px 40px 38px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.55),
+                0 0 0 1px rgba(255, 255, 255, 0.02);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            animation: cardIn 0.7s ease forwards;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* LOGO */
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-mark {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 18px;
+
+            border: 1px solid #d6a85c;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #d6a85c;
+
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+            font-weight: 700;
+
+            box-shadow:
+                0 0 25px rgba(214, 168, 92, 0.12);
+        }
+
+        .logo h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 30px;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        .logo p {
+            margin-top: 7px;
+            color: #9ca3af;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* HEADING */
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h2 {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .heading p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        /* DJANGO ERROR */
+
+        .error {
+            background: rgba(185, 74, 72, 0.12);
+            border: 1px solid rgba(185, 74, 72, 0.4);
+            color: #f5a3a0;
+
+            border-radius: 9px;
+
+            padding: 11px 13px;
+            margin-bottom: 18px;
+
+            font-size: 13px;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            color: #d1d5db;
+
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            background: #0c0f15;
+
+            border: 1px solid #2a303b;
+            border-radius: 9px;
+
+            color: #fff;
+
+            padding: 13px 14px;
+
+            font-family: inherit;
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.25s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #606875;
+        }
+
+        .form-group input:focus {
+            border-color: #d6a85c;
+
+            box-shadow:
+                0 0 0 3px rgba(214, 168, 92, 0.10);
+        }
+
+        /* LOGIN BUTTON */
+
+        .login-button {
+            width: 100%;
+
+            border: none;
+            border-radius: 9px;
+
+            padding: 14px;
+
+            margin-top: 5px;
+
+            background: #d6a85c;
+            color: #11141b;
+
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+
+            letter-spacing: 0.8px;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .login-button:hover {
+            background: #e3ba72;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 25px rgba(214, 168, 92, 0.18);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        /* FOOTER */
+
+        .login-footer {
+            text-align: center;
+
+            margin-top: 25px;
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .login-footer p {
+            color: #6b7280;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .login-footer span {
+            color: #d6a85c;
+        }
+
+        /* BACK BUTTON */
+
+        .back-home {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #9ca3af;
+            text-decoration: none;
+
+            font-size: 12px;
+
+            transition: color 0.2s ease;
+        }
+
+        .back-home:hover {
+            color: #d6a85c;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 500px) {
+
+            body {
+                padding: 18px;
+            }
+
+            .login-card {
+                padding: 35px 25px 30px;
+            }
+
+            .logo h1 {
+                font-size: 26px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <div class="logo-mark">
+                KB
+            </div>
+
+            <h1>KB MOTORS</h1>
+
+            <p>Dealership Management</p>
+
+        </div>
+
+
+        <!-- HEADING -->
+
+        <div class="heading">
+
+            <h2>Welcome back</h2>
+
+            <p>
+                Sign in to manage your vehicles and dealership.
+            </p>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="error">
+                    Invalid username or password.
+                    Please try again.
+                </div>
+            {% endif %}
+
+
+            <div class="form-group">
+
+                <label for="id_username">
+                    USERNAME
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    id="id_username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                    autofocus
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="id_password">
+                    PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    id="id_password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <input
+                type="hidden"
+                name="next"
+                value="{{ next }}"
+            >
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                SIGN IN TO ADMIN
+            </button>
+
+        </form>
+
+
+        <!-- FOOTER -->
+
+        <div class="login-footer">
+
+            <p>
+                Authorized access only.<br>
+                <span>KB MOTORS</span> • Used Car Dealership
+            </p>
+
+        </div>
+
+
+        <a href="/" class="back-home">
+            ← Back to KB MOTORS
+        </a>
+
+    </div>
+
+</body>
+</html>
