@@ -1,0 +1,229 @@
+{% extends "admin/base.html" %}
+
+{% load static %}
+
+{% block title %}
+KB MOTORS | Admin
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+:root {
+    --dark: #080a0f;
+    --dark2: #11141b;
+    --gold: #d6a85c;
+    --gold-light: #e5c17a;
+    --bg: #f5f6f8;
+    --text: #1f2937;
+    --muted: #6b7280;
+}
+
+body {
+    font-family: "DM Sans", sans-serif !important;
+    background: var(--bg) !important;
+}
+
+
+/* HEADER */
+
+#header {
+    background: var(--dark) !important;
+    padding: 18px 35px !important;
+    border-bottom: 2px solid var(--gold);
+}
+
+#branding h1 {
+    margin: 0 !important;
+}
+
+#branding h1 a {
+    font-family: "Playfair Display", serif !important;
+    color: white !important;
+    font-size: 26px !important;
+    letter-spacing: 3px;
+}
+
+#user-tools {
+    font-size: 13px !important;
+}
+
+#user-tools a {
+    color: var(--gold-light) !important;
+}
+
+
+/* BREADCRUMBS */
+
+.breadcrumbs {
+    background: white !important;
+    color: var(--muted) !important;
+    padding: 14px 35px !important;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* CONTENT */
+
+#content {
+    max-width: 1450px !important;
+    margin: auto !important;
+    padding: 35px !important;
+}
+
+#content-main {
+    width: 100% !important;
+}
+
+
+/* MODULE */
+
+.module {
+    background: white !important;
+    border: none !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.module h2,
+.module caption {
+    background: var(--dark) !important;
+    color: white !important;
+    padding: 16px 20px !important;
+    font-weight: 600 !important;
+}
+
+
+/* LINKS */
+
+a {
+    color: #80652e !important;
+}
+
+a:hover {
+    color: var(--gold) !important;
+}
+
+
+/* BUTTON */
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input {
+    background: var(--gold) !important;
+    color: #111 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 11px 20px !important;
+    font-weight: 700 !important;
+}
+
+.button:hover,
+input[type="submit"]:hover {
+    background: var(--gold-light) !important;
+}
+
+
+/* TABLE */
+
+#result_list {
+    border: none !important;
+}
+
+#result_list thead th {
+    background: #f3f4f6 !important;
+    padding: 14px !important;
+    color: #374151 !important;
+}
+
+#result_list tbody td {
+    padding: 14px !important;
+}
+
+#result_list tbody tr:hover {
+    background: #fffaf0 !important;
+}
+
+
+/* FORM INPUTS */
+
+input,
+select,
+textarea {
+    border: 1px solid #d1d5db !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 0 3px rgba(214,168,92,.12) !important;
+}
+
+
+/* FIELDSET */
+
+fieldset.module {
+    border-radius: 14px !important;
+}
+
+fieldset.module h2 {
+    font-family: "DM Sans", sans-serif !important;
+    letter-spacing: .3px;
+}
+
+
+/* FILTER */
+
+#changelist-filter {
+    background: white !important;
+    border-radius: 12px !important;
+}
+
+#changelist-filter h2 {
+    background: var(--dark) !important;
+}
+
+#changelist-filter h3 {
+    color: var(--gold) !important;
+}
+
+
+/* DELETE */
+
+.deletelink {
+    background: #b94a48 !important;
+    border-radius: 7px !important;
+}
+
+</style>
+
+{% endblock %}
+
+{% block branding %}
+
+<h1 id="branding">
+    <a href="{% url 'admin:index' %}">
+        KB MOTORS
+    </a>
+</h1>
+
+{% endblock %}
+
+{% block nav-global %}
+{% endblock %}
