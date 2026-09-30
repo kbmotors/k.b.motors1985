@@ -122,7 +122,7 @@
             display: flex;
             align-items: center;
 
-            gap: 34px;
+            gap: 30px;
         }
 
         nav ul a {
@@ -205,11 +205,9 @@
                     rgba(255,255,255,.42) 65%,
                     rgba(255,255,255,.05) 100%
                 ),
-
                 url("https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=2200&q=90");
 
             background-size: cover;
-
             background-position: center;
         }
 
@@ -930,6 +928,167 @@
 
 
         /* =====================================================
+           LOCATION
+        ===================================================== */
+
+        .location-section {
+            padding: 125px 7%;
+
+            background: #f7f6f2;
+
+            border-top: 1px solid #e7e3da;
+
+            border-bottom: 1px solid #e7e3da;
+        }
+
+        .location-container {
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: .85fr 1.15fr;
+
+            gap: 55px;
+
+            align-items: center;
+        }
+
+        .location-content {
+            max-width: 500px;
+        }
+
+        .location-content .section-label {
+            text-align: left;
+
+            margin-bottom: 18px;
+        }
+
+        .location-content .section-title {
+            margin-bottom: 25px;
+        }
+
+        .location-content .section-title span {
+            color: #b58b43;
+        }
+
+        .location-description {
+            color: #777;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            margin-bottom: 25px;
+        }
+
+        .location-address {
+            display: flex;
+
+            gap: 15px;
+
+            padding: 22px;
+
+            background: white;
+
+            border: 1px solid #e7e3da;
+
+            margin-bottom: 28px;
+        }
+
+        .location-icon {
+            min-width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid #c7a05a;
+
+            border-radius: 50%;
+
+            color: #b58b43;
+
+            font-size: 18px;
+        }
+
+        .location-address-text {
+            color: #555;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        .location-address-text strong {
+            display: block;
+
+            color: #222;
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 18px;
+
+            margin-bottom: 5px;
+        }
+
+        .location-btn {
+            display: inline-block;
+
+            padding: 16px 28px;
+
+            background: #b58b43;
+
+            color: white;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            transition: .3s;
+
+            box-shadow:
+                0 10px 25px rgba(181,139,67,.18);
+        }
+
+        .location-btn:hover {
+            background: #191919;
+
+            transform: translateY(-4px);
+        }
+
+        .map-container {
+            width: 100%;
+
+            min-height: 420px;
+
+            background: #ddd;
+
+            overflow: hidden;
+
+            border: 1px solid #ddd;
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,.10);
+        }
+
+        .map-container iframe {
+            display: block;
+
+            width: 100%;
+
+            height: 420px;
+
+            border: 0;
+        }
+
+
+        /* =====================================================
            CTA
         ===================================================== */
 
@@ -1006,6 +1165,8 @@
 
             justify-content: space-between;
 
+            gap: 25px;
+
             color: #999;
 
             font-size: 11px;
@@ -1023,6 +1184,12 @@
 
         footer .footer-logo span {
             color: #c7a05a;
+        }
+
+        .footer-address {
+            color: #aaa;
+
+            line-height: 1.7;
         }
 
 
@@ -1056,7 +1223,7 @@
            RESPONSIVE
         ===================================================== */
 
-        @media(max-width: 1000px) {
+        @media(max-width: 1100px) {
 
             nav ul {
                 gap: 18px;
@@ -1068,6 +1235,24 @@
 
             .documents-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media(max-width: 850px) {
+
+            .location-container {
+                grid-template-columns: 1fr;
+            }
+
+            .location-content {
+                max-width: 100%;
+            }
+
+            .map-container,
+            .map-container iframe {
+                height: 400px;
             }
 
         }
@@ -1101,6 +1286,7 @@
             .search-section,
             .cars-section,
             .paperwork-section,
+            .location-section,
             .cta {
                 padding-left: 6%;
                 padding-right: 6%;
@@ -1122,10 +1308,16 @@
                 margin-top: 10px;
             }
 
+            .location-btn {
+                width: 100%;
+
+                text-align: center;
+            }
+
             footer {
                 flex-direction: column;
 
-                gap: 12px;
+                gap: 15px;
 
                 text-align: center;
             }
@@ -1170,6 +1362,11 @@
                 font-size: 36px;
             }
 
+            .map-container,
+            .map-container iframe {
+                height: 330px;
+            }
+
         }
 
     </style>
@@ -1206,6 +1403,10 @@
 
         <li>
             <a href="#paperwork">PAPERWORK</a>
+        </li>
+
+        <li>
+            <a href="#location">LOCATION</a>
         </li>
 
         <li>
@@ -1671,6 +1872,86 @@
 
 
 <!-- =====================================================
+     LOCATION
+===================================================== -->
+
+<section class="location-section" id="location">
+
+    <div class="location-container">
+
+
+        <div class="location-content">
+
+            <div class="section-label">
+                VISIT KB MOTORS
+            </div>
+
+            <h2 class="section-title">
+                Find Us <span>Here.</span>
+            </h2>
+
+            <p class="location-description">
+
+                Looking for your next pre-owned car?
+                Visit KB MOTORS and explore our available
+                collection of quality second-hand vehicles.
+
+            </p>
+
+
+            <div class="location-address">
+
+                <div class="location-icon">
+                    📍
+                </div>
+
+                <div class="location-address-text">
+
+                    <strong>
+                        KB MOTORS
+                    </strong>
+
+                    Shop No. 1, 2 Gurdwara,<br>
+                    Main Road, Block A, Garhi,<br>
+                    East of Kailash, New Delhi,<br>
+                    Delhi – 110065
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="https://www.google.com/maps/search/?api=1&query=K.B.+Motors+%26+Properties%2C+Shop+No.1%2C+2+Gurdwara%2C+Main+Road%2C+Block+A%2C+Garhi%2C+East+of+Kailash%2C+New+Delhi%2C+Delhi+110065"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="location-btn"
+            >
+                📍 GET DIRECTIONS
+            </a>
+
+        </div>
+
+
+        <!-- GOOGLE MAP -->
+
+        <div class="map-container">
+
+            <iframe
+                src="https://www.google.com/maps?q=K.B.%20Motors%20%26%20Properties%2C%20Shop%20No.1%2C%202%20Gurdwara%2C%20Main%20Road%2C%20Block%20A%2C%20Garhi%2C%20East%20of%20Kailash%2C%20New%20Delhi%2C%20Delhi%20110065&output=embed"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      CTA
 ===================================================== -->
 
@@ -1708,8 +1989,13 @@
         KB <span>MOTORS</span>
     </div>
 
+    <div class="footer-address">
+        📍 Shop No. 1, 2 Gurdwara, Main Road, Block A,<br>
+        Garhi, East of Kailash, New Delhi – 110065
+    </div>
+
     <div>
-        © 2026 KB MOTORS.
+        © 2026 KB MOTORS.<br>
         Quality Pre-Owned Cars.
     </div>
 
@@ -1843,12 +2129,60 @@
 
 
     /* =====================================================
+       LOCATION REVEAL
+    ===================================================== */
+
+    const locationSection =
+        document.querySelector(".location-container");
+
+    if (locationSection) {
+
+        const locationObserver =
+            new IntersectionObserver(
+
+                function (entries) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.style.opacity = "1";
+
+                            entry.target.style.transform =
+                                "translateY(0)";
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: .1
+                }
+
+            );
+
+        locationSection.style.opacity = "0";
+
+        locationSection.style.transform =
+            "translateY(25px)";
+
+        locationSection.style.transition =
+            "opacity .7s ease, transform .7s ease";
+
+        locationObserver.observe(locationSection);
+
+    }
+
+
+    /* =====================================================
        BUTTON CLICK EFFECT
     ===================================================== */
 
     const buttons =
         document.querySelectorAll(
-            ".hero-btn, .hero-btn-outline, .cta-btn, .details-btn"
+            ".hero-btn, .hero-btn-outline, .cta-btn, .details-btn, .location-btn"
         );
 
 
@@ -1910,7 +2244,30 @@
 
             navLinks.style.boxShadow =
                 "0 15px 30px rgba(0,0,0,.08)";
+
         }
+
+    });
+
+
+    /* =====================================================
+       CLOSE MOBILE MENU AFTER CLICK
+    ===================================================== */
+
+    const allNavLinks =
+        document.querySelectorAll("nav ul a");
+
+    allNavLinks.forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            if (window.innerWidth <= 750) {
+
+                navLinks.style.display = "none";
+
+            }
+
+        });
 
     });
 
