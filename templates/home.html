@@ -86,12 +86,12 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 25px;
             list-style: none;
         }
 
         .nav-links a {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 1px;
             color: #333;
@@ -100,6 +100,10 @@
 
         .nav-links a:hover {
             color: #b58b43;
+        }
+
+        .instagram-nav {
+            color: #b58b43 !important;
         }
 
         .admin-link {
@@ -118,10 +122,8 @@
 
         .hero {
             min-height: 100vh;
-
             display: flex;
             align-items: center;
-
             position: relative;
 
             background:
@@ -434,6 +436,210 @@
             color: #777;
         }
 
+        /* ================= SERVICES ================= */
+
+        .services-section {
+            background: #eeeae2;
+        }
+
+        .services-inner {
+            width: 90%;
+            max-width: 1250px;
+            margin: auto;
+            padding: 100px 0;
+        }
+
+        .services-heading {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .services-heading .small-title {
+            color: #b58b43;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .services-heading h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(36px, 5vw, 55px);
+            margin-bottom: 15px;
+        }
+
+        .services-heading p {
+            max-width: 650px;
+            margin: auto;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .service-card {
+            position: relative;
+            background: #111;
+            color: white;
+            padding: 40px;
+            border: 1px solid #292929;
+            min-height: 330px;
+            overflow: hidden;
+            transition: 0.35s ease;
+        }
+
+        .service-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(181, 139, 67, 0.08);
+            right: -70px;
+            top: -70px;
+        }
+
+        .service-card:hover {
+            transform: translateY(-7px);
+            border-color: #b58b43;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            width: 58px;
+            height: 58px;
+            border: 1px solid #b58b43;
+            color: #d6b26d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 25px;
+        }
+
+        .service-label {
+            color: #b58b43;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .service-card h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 31px;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 520px;
+            margin-bottom: 25px;
+        }
+
+        .service-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 20px;
+            background: #b58b43;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: 0.3s ease;
+        }
+
+        .service-whatsapp:hover {
+            background: white;
+            color: #171717;
+        }
+
+        /* ================= SOCIAL ================= */
+
+        .social-section {
+            background: #171717;
+            color: white;
+            padding: 75px 6%;
+        }
+
+        .social-inner {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .social-small {
+            color: #d6b26d;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .social-inner h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .social-inner p {
+            color: #aaa;
+            line-height: 1.8;
+            max-width: 620px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 23px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: 0.3s ease;
+        }
+
+        .instagram-btn {
+            border: 1px solid #b58b43;
+            color: white;
+        }
+
+        .instagram-btn:hover {
+            background: #b58b43;
+        }
+
+        .whatsapp-btn {
+            background: #b58b43;
+            color: white;
+            border: 1px solid #b58b43;
+        }
+
+        .whatsapp-btn:hover {
+            background: white;
+            color: #171717;
+        }
+
         /* ================= PAPERWORK ================= */
 
         .paperwork-section {
@@ -638,6 +844,23 @@
             color: #b58b43;
         }
 
+        .footer-social {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 14px;
+        }
+
+        .footer-social a {
+            color: #aaa;
+            font-size: 12px;
+            transition: 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #d6b26d;
+        }
+
         .footer-text {
             color: #888;
             font-size: 12px;
@@ -645,9 +868,54 @@
             line-height: 1.7;
         }
 
+        /* ================= FLOATING WHATSAPP ================= */
+
+        .whatsapp-float {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            background: #171717;
+            color: white;
+
+            border: 1px solid #b58b43;
+            border-radius: 50px;
+
+            padding: 13px 19px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            transition: 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            background: #b58b43;
+            transform: translateY(-3px);
+        }
+
+        .wa-icon {
+            font-size: 19px;
+        }
+
         /* ================= RESPONSIVE ================= */
 
-        @media (max-width: 1000px) {
+        @media (max-width: 1100px) {
+
+            .nav-links {
+                gap: 17px;
+            }
+
+            .nav-links a {
+                font-size: 11px;
+            }
 
             .cars-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -659,6 +927,22 @@
 
             .location-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .social-buttons {
+                width: 100%;
             }
         }
 
@@ -699,6 +983,7 @@
                 display: block;
                 padding: 17px 6%;
                 width: 100%;
+                font-size: 12px;
             }
 
             .menu-btn {
@@ -727,6 +1012,22 @@
 
             .paperwork-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .services-inner {
+                padding: 75px 0;
+            }
+
+            .service-card {
+                padding: 30px;
+            }
+
+            .social-section {
+                padding: 65px 6%;
+            }
+
+            .social-inner h2 {
+                font-size: 36px;
             }
 
             .location-inner {
@@ -776,6 +1077,26 @@
             .price {
                 font-size: 21px;
             }
+
+            .service-card h3 {
+                font-size: 27px;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .social-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .whatsapp-float {
+                right: 15px;
+                bottom: 15px;
+                padding: 12px 16px;
+            }
         }
     </style>
 </head>
@@ -790,7 +1111,7 @@
             KB <span>MOTORS</span>
         </a>
 
-        <button class="menu-btn" id="menuBtn">
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
             ☰
         </button>
 
@@ -809,6 +1130,10 @@
             </li>
 
             <li>
+                <a href="#services">SERVICES</a>
+            </li>
+
+            <li>
                 <a href="#paperwork">PAPERWORK</a>
             </li>
 
@@ -817,7 +1142,20 @@
             </li>
 
             <li>
-                <a href="/admin/login/" class="admin-link">ADMIN</a>
+                <a
+                    href="https://www.instagram.com/k.b.motors1985/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="instagram-nav"
+                >
+                    INSTAGRAM
+                </a>
+            </li>
+
+            <li>
+                <a href="/admin/login/" class="admin-link">
+                    ADMIN
+                </a>
             </li>
 
         </ul>
@@ -1003,12 +1341,6 @@
                 data-body="{{ car.body_type }}"
             >
 
-                <!--
-                    IMPORTANT:
-                    Model field is image_url.
-                    DO NOT use car.image or car.image.url here.
-                -->
-
                 <div class="car-image">
 
                     {% if car.image_url %}
@@ -1130,6 +1462,161 @@
             </div>
 
             {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SERVICES ================= -->
+
+    <section class="services-section" id="services">
+
+        <div class="services-inner">
+
+            <div class="services-heading">
+
+                <div class="small-title">
+                    Beyond Car Sales
+                </div>
+
+                <h2>
+                    Our Automotive Services
+                </h2>
+
+                <p>
+                    KB MOTORS also provides vehicle repair and
+                    automotive consultancy services.
+                </p>
+
+            </div>
+
+
+            <div class="services-grid">
+
+                <!-- REPAIR -->
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+                        🔧
+                    </div>
+
+                    <div class="service-label">
+                        VEHICLE CARE
+                    </div>
+
+                    <h3>
+                        Vehicle Repair
+                    </h3>
+
+                    <p>
+                        From regular servicing and maintenance to
+                        vehicle repair requirements, get in touch
+                        with KB MOTORS for assistance with your vehicle.
+                    </p>
+
+                    <a
+                        href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20your%20vehicle%20repair%20services."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="service-whatsapp"
+                    >
+                        WhatsApp for Repair
+                        →
+                    </a>
+
+                </div>
+
+
+                <!-- CONSULTANCY -->
+
+                <div class="service-card">
+
+                    <div class="service-icon">
+                        💼
+                    </div>
+
+                    <div class="service-label">
+                        AUTOMOTIVE GUIDANCE
+                    </div>
+
+                    <h3>
+                        Automotive Consultancy
+                    </h3>
+
+                    <p>
+                        Need help with buying, selling, evaluating
+                        or understanding a vehicle? Contact us for
+                        practical automotive guidance.
+                    </p>
+
+                    <a
+                        href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20your%20automotive%20consultancy%20services."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="service-whatsapp"
+                    >
+                        WhatsApp for Consultancy
+                        →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SOCIAL ================= -->
+
+    <section class="social-section">
+
+        <div class="social-inner">
+
+            <div>
+
+                <div class="social-small">
+                    Stay Connected
+                </div>
+
+                <h2>
+                    Follow KB MOTORS
+                </h2>
+
+                <p>
+                    Follow us on Instagram for vehicle updates,
+                    available cars, services and other updates.
+                </p>
+
+            </div>
+
+
+            <div class="social-buttons">
+
+                <a
+                    href="https://www.instagram.com/k.b.motors1985/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-btn instagram-btn"
+                >
+                    Instagram
+                    ↗
+                </a>
+
+                <a
+                    href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20would%20like%20to%20know%20more%20about%20your%20cars%20and%20services."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-btn whatsapp-btn"
+                >
+                    WhatsApp Us
+                    →
+                </a>
+
+            </div>
 
         </div>
 
@@ -1314,7 +1801,7 @@
 
                         <div>
                             <strong>Contact:</strong>
-                            Contact us for vehicle enquiries
+                            +91 93159 08281
                         </div>
 
                     </div>
@@ -1350,8 +1837,8 @@
         </h2>
 
         <p>
-            Explore our available pre-owned vehicles and find
-            the right car for you.
+            Explore our available pre-owned vehicles or contact
+            KB MOTORS directly for assistance.
         </p>
 
         <a href="#cars" class="btn">
@@ -1367,21 +1854,60 @@
 
         <div class="footer-inner">
 
-            <div class="footer-logo">
-                KB <span>MOTORS</span>
+            <div>
+
+                <div class="footer-logo">
+                    KB <span>MOTORS</span>
+                </div>
+
+                <div class="footer-social">
+
+                    <a
+                        href="https://www.instagram.com/k.b.motors1985/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Instagram
+                    </a>
+
+                    <a
+                        href="https://wa.me/919315908281"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        WhatsApp
+                    </a>
+
+                </div>
+
             </div>
+
 
             <div class="footer-text">
 
                 © 2026 KB MOTORS. All rights reserved.
                 <br>
-                Pre-Owned Cars | Trusted Vehicle Deals
+                Pre-Owned Cars | Vehicle Repair | Automotive Consultancy
 
             </div>
 
         </div>
 
     </footer>
+
+
+    <!-- ================= FLOATING WHATSAPP ================= -->
+
+    <a
+        href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20would%20like%20to%20make%20an%20enquiry."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-float"
+        aria-label="Chat with KB MOTORS on WhatsApp"
+    >
+        <span class="wa-icon">☏</span>
+        <span>WhatsApp</span>
+    </a>
 
 
     <!-- ================= JAVASCRIPT ================= -->
@@ -1462,8 +1988,10 @@
                     card.style.display = "block";
 
                     setTimeout(function () {
+
                         card.style.opacity = "1";
                         card.style.transform = "translateY(0)";
+
                     }, 20);
 
                 } else {
@@ -1502,7 +2030,9 @@
                     document
                         .querySelectorAll('[data-filter-type="fuel"]')
                         .forEach(function (btn) {
+
                             btn.classList.remove("active");
+
                         });
 
                 }
@@ -1515,7 +2045,9 @@
                     document
                         .querySelectorAll('[data-filter-type="body"]')
                         .forEach(function (btn) {
+
                             btn.classList.remove("active");
+
                         });
 
                 }
@@ -1532,21 +2064,23 @@
 
         /* ================= BUTTON EFFECT ================= */
 
-        document.querySelectorAll(".btn, .details-btn").forEach(function (button) {
+        document
+            .querySelectorAll(".btn, .details-btn, .service-whatsapp, .social-btn")
+            .forEach(function (button) {
 
-            button.addEventListener("click", function () {
+                button.addEventListener("click", function () {
 
-                this.style.transform = "scale(0.98)";
+                    this.style.transform = "scale(0.98)";
 
-                setTimeout(() => {
+                    setTimeout(() => {
 
-                    this.style.transform = "";
+                        this.style.transform = "";
 
-                }, 120);
+                    }, 120);
+
+                });
 
             });
-
-        });
 
 
         /* ================= IMAGE ERROR HANDLING ================= */
@@ -1568,43 +2102,3 @@
 
 </html>
 ```
-
-### 🔥 Main fix kya hua?
-
-Pehle homepage mein ye tha:
-
-```django
-{% if car.image %}
-    <img src="{{ car.image.url }}">
-{% endif %}
-```
-
-Lekin tumhare `Car` model mein **`image` naam ka field hai hi nahi**.
-
-Tumhare model mein:
-
-```python
-image_url = models.URLField(blank=True, null=True)
-```
-
-Isliye ab homepage mein:
-
-```django
-{% if car.image_url %}
-    <img src="{{ car.image_url }}">
-{% endif %}
-```
-
-hai.
-
-**Detail page already `car.image_url` use kar raha tha**, isi wajah se detail page par correct image aa rahi thi aur homepage par same fallback image aa rahi thi.
-
-### Ab kya karna hai
-
-1. `templates/index.html` open karo.
-2. Upar wala complete code paste karo.
-3. Save karo.
-4. Vercel par **redeploy** karo.
-5. Browser mein `Ctrl + Shift + R` karo.
-
-Ab **Car 1 → Car 1 ki image, Car 2 → Car 2 ki image, Car 3 → Car 3 ki image** homepage cards par bhi aayegi.
