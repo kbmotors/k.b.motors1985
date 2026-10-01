@@ -1,5 +1,4 @@
 from django.db import models
-import re
 
 
 class Car(models.Model):
@@ -74,11 +73,7 @@ class Car(models.Model):
         blank=True
     )
 
-    image_url = models.URLField(
-        blank=True,
-        null=True,
-        help_text="Paste normal image URL or Google Drive sharing link"
-    )
+    image_url = models.URLField(blank=True, null=True)
 
     is_available = models.BooleanField(
         default=True
@@ -91,56 +86,6 @@ class Car(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True
     )
-
-    def get_image_url(self):
-
-        if not self.image_url:
-            return ""
-
-        url = self.image_url.strip()
-
-        # ---------------------------------
-        # GOOGLE DRIVE LINK CONVERSION
-        # ---------------------------------
-
-        # Example:
-        # https://drive.google.com/file/d/FILE_ID/view
-
-        match = re.search(
-            r"drive\.google\.com/file/d/([^/]+)",
-            url
-        )
-
-        if match:
-            file_id = match.group(1)
-
-            return (
-                f"https://drive.google.com/uc"
-                f"?export=view&id={file_id}"
-            )
-
-        # ---------------------------------
-        # Google Drive open?id=FILE_ID
-        # ---------------------------------
-
-        match = re.search(
-            r"drive\.google\.com/open\?id=([^&]+)",
-            url
-        )
-
-        if match:
-            file_id = match.group(1)
-
-            return (
-                f"https://drive.google.com/uc"
-                f"?export=view&id={file_id}"
-            )
-
-        # ---------------------------------
-        # Already direct URL
-        # ---------------------------------
-
-        return url
 
     def __str__(self):
         return f"{self.brand} {self.model_name}"
