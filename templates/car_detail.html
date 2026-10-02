@@ -552,6 +552,62 @@
             }
 
         }
+    /* DOCUMENTATION */
+
+.documentation {
+    margin-top: 30px;
+}
+
+.documentation-title {
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+    margin-bottom: 14px;
+}
+
+.documentation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.document-item {
+    background: #ffffff;
+    border: 1px solid #deded9;
+    padding: 18px 16px;
+    min-height: 90px;
+    transition: .3s;
+}
+
+.document-item:hover {
+    background: #fafaf8;
+    transform: translateY(-2px);
+}
+
+.document-item small {
+    display: block;
+    color: #8b8b86;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 9px;
+}
+
+.document-value {
+    color: #202020;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+
+@media(max-width: 600px) {
+
+    .documentation-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
 
     </style>
 
@@ -773,6 +829,67 @@
             </div>
 
         {% endif %}
+        <!-- DOCUMENTATION -->
+
+<div class="documentation">
+
+    <div class="documentation-title">
+        Vehicle Documentation
+    </div>
+
+    <div class="documentation-grid">
+
+        <!-- OWNER -->
+
+        <div class="document-item">
+
+            <small>OWNER</small>
+
+            <div class="document-value">
+                {{ car.owner|default:"Not Available" }}
+            </div>
+
+        </div>
+
+
+        <!-- REGISTRATION -->
+
+        <div class="document-item">
+
+            <small>REGISTRATION NUMBER</small>
+
+            <div class="document-value">
+                {{ car.registration_number|default:"Not Available" }}
+            </div>
+
+        </div>
+
+
+        <!-- INSURANCE -->
+
+        <div class="document-item">
+
+            <small>INSURANCE VALID UPTO</small>
+
+            <div class="document-value">
+
+                {% if car.insurance_valid_upto %}
+
+                    {{ car.insurance_valid_upto|date:"d M Y" }}
+
+                {% else %}
+
+                    Not Available
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 
