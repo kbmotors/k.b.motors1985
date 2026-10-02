@@ -1,1489 +1,2153 @@
 {% load static %}
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>KB MOTORS | Pre-Owned Cars</title>
+```
+<title>KB MOTORS | Pre-Owned Cars</title>
 
-    <meta name="description"
-        content="KB MOTORS - Trusted pre-owned cars, vehicle repair, automotive consultancy and complete paperwork assistance.">
+<meta name="description"
+    content="KB MOTORS - Trusted pre-owned cars, vehicle repair, automotive consultancy and complete paperwork assistance.">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-        rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+<style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: "DM Sans", sans-serif;
+        background: #f7f6f2;
+        color: #171717;
+        overflow-x: hidden;
+    }
+
+    body.loaded {
+        opacity: 1;
+    }
+
+    body {
+        opacity: 0;
+        transition: opacity 0.7s ease;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    button {
+        font-family: inherit;
+    }
+
+    ::selection {
+        background: #b58b43;
+        color: white;
+    }
+
+
+    /* =====================================================
+       PAGE LOADER
+    ===================================================== */
+
+    .page-loader {
+        position: fixed;
+        inset: 0;
+        background: #080a0f;
+        z-index: 99999;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition:
+            opacity 0.7s ease,
+            visibility 0.7s ease;
+    }
+
+    .page-loader.hide {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .loader-inner {
+        text-align: center;
+        color: white;
+    }
+
+    .loader-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 35px;
+        letter-spacing: 4px;
+        animation: loaderPulse 1.5s ease-in-out infinite;
+    }
+
+    .loader-logo span {
+        color: #d6a85c;
+    }
+
+    .loader-line {
+        width: 0;
+        height: 1px;
+        background: #d6a85c;
+        margin: 15px auto 0;
+        animation: loaderLine 1.5s ease forwards;
+    }
+
+    @keyframes loaderPulse {
+        0%, 100% {
+            opacity: .5;
         }
 
-        html {
-            scroll-behavior: smooth;
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes loaderLine {
+        from {
+            width: 0;
         }
 
-        body {
-            font-family: "DM Sans", sans-serif;
-            background: #f7f6f2;
-            color: #171717;
-            overflow-x: hidden;
+        to {
+            width: 150px;
+        }
+    }
+
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 76px;
+        z-index: 9999;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 5%;
+
+        background: rgba(255, 255, 255, 0.90);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+        transition:
+            height .35s ease,
+            background .35s ease,
+            box-shadow .35s ease,
+            transform .35s ease;
+    }
+
+    nav.scrolled {
+        height: 68px;
+        background: rgba(255, 255, 255, .97);
+        box-shadow: 0 10px 35px rgba(0, 0, 0, .09);
+    }
+
+
+    /* =====================================================
+       LOGO
+    ===================================================== */
+
+    .logo {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        line-height: 1;
+        cursor: pointer;
+
+        transition: transform .3s ease;
+    }
+
+    .logo:hover {
+        transform: translateY(-2px);
+    }
+
+    .logo-main {
+        font-family: "Playfair Display", serif;
+        font-size: 25px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #222;
+        white-space: nowrap;
+    }
+
+    .logo-main span {
+        color: #b58b43;
+    }
+
+    .logo small {
+        font-size: 8px;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        color: #777;
+        margin-top: 5px;
+    }
+
+
+    /* =====================================================
+       NAV LINKS
+    ===================================================== */
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 27px;
+        list-style: none;
+    }
+
+    .nav-links li {
+        animation: navAppear .7s ease both;
+    }
+
+    .nav-links li:nth-child(1) {
+        animation-delay: .1s;
+    }
+
+    .nav-links li:nth-child(2) {
+        animation-delay: .15s;
+    }
+
+    .nav-links li:nth-child(3) {
+        animation-delay: .2s;
+    }
+
+    .nav-links li:nth-child(4) {
+        animation-delay: .25s;
+    }
+
+    .nav-links li:nth-child(5) {
+        animation-delay: .3s;
+    }
+
+    .nav-links li:nth-child(6) {
+        animation-delay: .35s;
+    }
+
+    .nav-links li:nth-child(7) {
+        animation-delay: .4s;
+    }
+
+    .nav-links li:nth-child(8) {
+        animation-delay: .45s;
+    }
+
+    @keyframes navAppear {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .nav-links a {
+        position: relative;
+
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #444;
+
+        transition: color .3s ease;
+    }
+
+    .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -7px;
+
+        width: 0;
+        height: 2px;
+
+        background: #b58b43;
+
+        transition: width .3s ease;
+    }
+
+    .nav-links a:hover {
+        color: #b58b43;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .admin-link {
+        color: #b58b43 !important;
+    }
+
+    .menu-btn {
+        display: none;
+
+        border: none;
+        background: none;
+
+        font-size: 27px;
+        cursor: pointer;
+        color: #222;
+
+        transition: transform .3s ease;
+    }
+
+    .menu-btn:hover {
+        transform: rotate(8deg);
+    }
+
+
+    /* =====================================================
+       HERO
+    ===================================================== */
+
+    .hero {
+        min-height: 760px;
+        margin-top: 76px;
+
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(5, 7, 10, .90) 0%,
+                rgba(5, 7, 10, .67) 45%,
+                rgba(5, 7, 10, .20) 100%
+            ),
+            url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=90");
+
+        background-size: cover;
+        background-position: center;
+
+        animation: heroBackground 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroBackground {
+        from {
+            background-size: 100%;
         }
 
-        button {
-            font-family: inherit;
+        to {
+            background-size: 108%;
+        }
+    }
+
+    .hero::before {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+
+        background:
+            radial-gradient(
+                circle at 70% 50%,
+                rgba(214, 168, 92, .12),
+                transparent 35%
+            );
+
+        pointer-events: none;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+
+        color: white;
+        padding: 80px 0;
+    }
+
+    .hero-small {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 4px;
+
+        color: #d6b36d;
+
+        margin-bottom: 20px;
+
+        opacity: 0;
+        animation: heroReveal .9s ease .4s forwards;
+    }
+
+    .hero h1 {
+        font-family: "Playfair Display", serif;
+
+        font-size: clamp(48px, 7vw, 88px);
+        line-height: .98;
+
+        max-width: 750px;
+
+        font-weight: 600;
+
+        margin-bottom: 25px;
+
+        opacity: 0;
+        animation: heroReveal 1s cubic-bezier(.22,1,.36,1) .55s forwards;
+    }
+
+    .hero h1 span {
+        color: #d6a85c;
+    }
+
+    .hero p {
+        max-width: 570px;
+
+        font-size: 17px;
+        line-height: 1.8;
+
+        color: rgba(255,255,255,.82);
+
+        margin-bottom: 35px;
+
+        opacity: 0;
+        animation: heroReveal .9s ease .75s forwards;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+
+        opacity: 0;
+        animation: heroReveal .9s ease .95s forwards;
+    }
+
+    @keyframes heroReveal {
+        from {
+            opacity: 0;
+            transform: translateY(35px);
         }
 
-        /* =========================
-           NAVBAR
-        ========================= */
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 76px;
-            z-index: 9999;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
 
-            padding: 0 5%;
+    .btn {
+        position: relative;
+        overflow: hidden;
 
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        min-height: 50px;
+        padding: 0 25px;
 
-            transition: 0.3s ease;
+        border-radius: 3px;
+
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+
+        transition:
+            transform .3s ease,
+            background .3s ease,
+            color .3s ease,
+            box-shadow .3s ease;
+    }
+
+    .btn::before {
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: -120%;
+
+        width: 80%;
+        height: 100%;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+        transform: skewX(-20deg);
+
+        transition: left .6s ease;
+    }
+
+    .btn:hover::before {
+        left: 140%;
+    }
+
+    .btn:hover {
+        transform: translateY(-4px);
+    }
+
+    .btn-gold {
+        background: #b58b43;
+        color: white;
+
+        box-shadow: 0 10px 25px rgba(181,139,67,.18);
+    }
+
+    .btn-gold:hover {
+        background: #9e7739;
+        box-shadow: 0 15px 35px rgba(181,139,67,.30);
+    }
+
+    .btn-outline {
+        border: 1px solid rgba(255,255,255,.55);
+        color: white;
+    }
+
+    .btn-outline:hover {
+        background: white;
+        color: #222;
+        box-shadow: 0 12px 30px rgba(255,255,255,.12);
+    }
+
+
+    /* =====================================================
+       COMMON
+    ===================================================== */
+
+    section {
+        padding: 100px 5%;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .section-label {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 3px;
+
+        color: #b58b43;
+
+        text-transform: uppercase;
+        margin-bottom: 13px;
+    }
+
+    .section-title {
+        font-family: "Playfair Display", serif;
+
+        font-size: clamp(34px,5vw,54px);
+        line-height: 1.1;
+
+        margin-bottom: 16px;
+
+        color: #171717;
+    }
+
+    .section-subtitle {
+        max-width: 650px;
+
+        color: #6d6d6d;
+
+        line-height: 1.8;
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(45px);
+
+        transition:
+            opacity .8s ease,
+            transform .8s cubic-bezier(.22,1,.36,1);
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .reveal-left {
+        opacity: 0;
+        transform: translateX(-45px);
+
+        transition:
+            opacity .8s ease,
+            transform .8s cubic-bezier(.22,1,.36,1);
+    }
+
+    .reveal-left.active {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+
+    /* =====================================================
+       CARS
+    ===================================================== */
+
+    .cars-section {
+        background: #f7f6f2;
+    }
+
+    .cars-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        gap: 30px;
+        margin-bottom: 45px;
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+
+        margin-bottom: 45px;
+    }
+
+    .filter-group {
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .filter-label {
+        width: 85px;
+
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+
+        text-transform: uppercase;
+        color: #888;
+    }
+
+    .filter-btn {
+        position: relative;
+        overflow: hidden;
+
+        border: 1px solid #ddd9d0;
+        background: transparent;
+
+        color: #555;
+
+        padding: 9px 15px;
+        border-radius: 3px;
+
+        font-size: 11px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition:
+            transform .25s ease,
+            background .25s ease,
+            color .25s ease,
+            border-color .25s ease;
+    }
+
+    .filter-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+        background: #b58b43;
+        border-color: #b58b43;
+        color: white;
+
+        box-shadow: 0 7px 18px rgba(181,139,67,.18);
+    }
+
+
+    /* =====================================================
+       CAR GRID
+    ===================================================== */
+
+    .car-grid {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 25px;
+    }
+
+    .car-card {
+        background: white;
+        border: 1px solid #e7e3dc;
+
+        overflow: hidden;
+
+        opacity: 0;
+        transform: translateY(45px);
+
+        transition:
+            opacity .7s ease,
+            transform .7s cubic-bezier(.22,1,.36,1),
+            box-shadow .35s ease;
+    }
+
+    .car-card.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .car-card.hidden {
+        display: none;
+    }
+
+    .car-card:hover {
+        transform: translateY(-9px);
+        box-shadow: 0 25px 55px rgba(0,0,0,.11);
+    }
+
+    .car-image-wrap {
+        position: relative;
+
+        height: 270px;
+
+        overflow: hidden;
+        background: #eee;
+    }
+
+    .car-image-wrap img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+        display: block;
+
+        transition:
+            transform .8s cubic-bezier(.22,1,.36,1),
+            filter .5s ease;
+    }
+
+    .car-card:hover .car-image-wrap img {
+        transform: scale(1.08);
+        filter: saturate(1.05);
+    }
+
+    .car-image-wrap::after {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+            180deg,
+            transparent 60%,
+            rgba(0,0,0,.12)
+        );
+
+        pointer-events: none;
+    }
+
+    .available {
+        position: absolute;
+
+        top: 14px;
+        left: 14px;
+
+        z-index: 2;
+
+        padding: 7px 10px;
+
+        background: rgba(255,255,255,.94);
+        color: #333;
+
+        font-size: 9px;
+        font-weight: 700;
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        backdrop-filter: blur(8px);
+
+        transition: transform .3s ease;
+    }
+
+    .car-card:hover .available {
+        transform: translateY(-2px);
+    }
+
+    .car-content {
+        padding: 23px;
+    }
+
+    .car-brand {
+        font-size: 10px;
+        font-weight: 700;
+
+        color: #b58b43;
+
+        letter-spacing: 2px;
+        text-transform: uppercase;
+
+        margin-bottom: 6px;
+    }
+
+    .car-name {
+        font-family: "Playfair Display",serif;
+
+        font-size: 25px;
+        color: #171717;
+
+        margin-bottom: 8px;
+
+        transition: color .3s ease;
+    }
+
+    .car-card:hover .car-name {
+        color: #b58b43;
+    }
+
+    .car-price {
+        font-size: 18px;
+        font-weight: 700;
+
+        color: #222;
+
+        margin-bottom: 17px;
+    }
+
+    .car-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 15px;
+
+        padding: 15px 0;
+
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+
+        color: #777;
+        font-size: 11px;
+    }
+
+    .car-description {
+        font-size: 12px;
+        line-height: 1.7;
+
+        color: #777;
+
+        margin: 15px 0;
+    }
+
+    .car-actions {
+        display: flex;
+        gap: 9px;
+    }
+
+    .car-btn {
+        flex: 1;
+
+        height: 43px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 1px solid #ddd;
+        background: white;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        transition:
+            transform .25s ease,
+            background .25s ease,
+            color .25s ease,
+            border-color .25s ease;
+    }
+
+    .car-btn:hover {
+        transform: translateY(-3px);
+        border-color: #b58b43;
+        color: #b58b43;
+    }
+
+    .car-btn.primary {
+        background: #b58b43;
+        color: white;
+        border-color: #b58b43;
+    }
+
+    .car-btn.primary:hover {
+        background: #9e7739;
+        color: white;
+    }
+
+    .no-cars {
+        grid-column: 1/-1;
+
+        text-align: center;
+
+        padding: 70px 20px;
+
+        background: white;
+        border: 1px solid #e5e1d9;
+
+        color: #777;
+    }
+
+
+    /* =====================================================
+       SERVICES
+    ===================================================== */
+
+    .services-section {
+        background: #11141b;
+        color: white;
+    }
+
+    .services-section .section-title {
+        color: white;
+    }
+
+    .services-section .section-subtitle {
+        color: #a9abb1;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+
+        gap: 25px;
+        margin-top: 50px;
+    }
+
+    .service-card {
+        position: relative;
+        overflow: hidden;
+
+        padding: 42px;
+
+        background: #181c24;
+
+        border: 1px solid rgba(255,255,255,.07);
+
+        transition:
+            transform .4s cubic-bezier(.22,1,.36,1),
+            border-color .3s ease,
+            box-shadow .4s ease;
+    }
+
+    .service-card::before {
+        content: "";
+
+        position: absolute;
+        left: 0;
+        bottom: 0;
+
+        width: 100%;
+        height: 3px;
+
+        background: #b58b43;
+
+        transform: scaleX(0);
+        transform-origin: left;
+
+        transition: transform .4s ease;
+    }
+
+    .service-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(181,139,67,.5);
+
+        box-shadow: 0 25px 50px rgba(0,0,0,.22);
+    }
+
+    .service-number {
+        color: #b58b43;
+
+        font-size: 12px;
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 28px;
+    }
+
+    .service-card h3 {
+        font-family: "Playfair Display",serif;
+
+        font-size: 30px;
+
+        margin-bottom: 15px;
+    }
+
+    .service-card p {
+        color: #a9abb1;
+
+        font-size: 14px;
+        line-height: 1.8;
+
+        margin-bottom: 25px;
+    }
+
+    .service-link {
+        display: inline-flex;
+
+        align-items: center;
+        gap: 9px;
+
+        color: #d6a85c;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+
+        transition: gap .3s ease;
+    }
+
+    .service-link:hover {
+        gap: 15px;
+    }
+
+
+    /* =====================================================
+       SOCIAL
+    ===================================================== */
+
+    .social-section {
+        background: #eeeae2;
+        text-align: center;
+    }
+
+    .social-section .section-subtitle {
+        margin: auto;
+    }
+
+    .social-buttons {
+        display: flex;
+        justify-content: center;
+
+        gap: 12px;
+        flex-wrap: wrap;
+
+        margin-top: 30px;
+    }
+
+    .social-btn {
+        min-width: 170px;
+
+        padding: 14px 22px;
+
+        background: white;
+        border: 1px solid #ded9cf;
+
+        font-size: 11px;
+        font-weight: 700;
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        transition:
+            transform .3s ease,
+            background .3s ease,
+            color .3s ease,
+            box-shadow .3s ease;
+    }
+
+    .social-btn:hover {
+        background: #b58b43;
+        border-color: #b58b43;
+        color: white;
+
+        transform: translateY(-5px);
+
+        box-shadow: 0 15px 30px rgba(181,139,67,.20);
+    }
+
+
+    /* =====================================================
+       PAPERWORK
+    ===================================================== */
+
+    .paperwork-section {
+        background: #f7f6f2;
+    }
+
+    .paperwork-grid {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+
+        gap: 18px;
+
+        margin-top: 50px;
+    }
+
+    .paper-card {
+        padding: 28px;
+
+        background: white;
+
+        border: 1px solid #e6e1d8;
+
+        transition:
+            transform .4s cubic-bezier(.22,1,.36,1),
+            box-shadow .4s ease;
+    }
+
+    .paper-card:hover {
+        transform: translateY(-7px);
+
+        box-shadow: 0 20px 40px rgba(0,0,0,.08);
+    }
+
+    .paper-icon {
+        width: 43px;
+        height: 43px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #f1eadf;
+        color: #b58b43;
+
+        font-size: 15px;
+        font-weight: 700;
+
+        margin-bottom: 20px;
+
+        transition:
+            transform .4s ease,
+            background .3s ease;
+    }
+
+    .paper-card:hover .paper-icon {
+        transform: rotate(-6deg) scale(1.08);
+        background: #b58b43;
+        color: white;
+    }
+
+    .paper-card h3 {
+        font-family: "Playfair Display",serif;
+
+        font-size: 22px;
+
+        margin-bottom: 9px;
+    }
+
+    .paper-card p {
+        color: #777;
+
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       LOCATION
+    ===================================================== */
+
+    .location-section {
+        background: #11141b;
+        color: white;
+    }
+
+    .location-section .section-title {
+        color: white;
+    }
+
+    .location-section .section-subtitle {
+        color: #aaa;
+    }
+
+    .location-grid {
+        display: grid;
+        grid-template-columns: .8fr 1.2fr;
+
+        gap: 40px;
+
+        margin-top: 50px;
+    }
+
+    .location-info {
+        padding: 38px;
+
+        background: #181c24;
+
+        transition: transform .4s ease;
+    }
+
+    .location-info:hover {
+        transform: translateY(-5px);
+    }
+
+    .location-item {
+        padding: 20px 0;
+
+        border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .location-item:first-child {
+        padding-top: 0;
+    }
+
+    .location-item:last-child {
+        border-bottom: none;
+    }
+
+    .location-item-label {
+        font-size: 9px;
+        font-weight: 700;
+
+        letter-spacing: 2px;
+        text-transform: uppercase;
+
+        color: #b58b43;
+
+        margin-bottom: 7px;
+    }
+
+    .location-item p {
+        color: #ddd;
+
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .map-wrap {
+        min-height: 450px;
+        overflow: hidden;
+    }
+
+    .map-wrap iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 450px;
+
+        border: 0;
+
+        filter: saturate(.8);
+
+        transition: filter .5s ease;
+    }
+
+    .map-wrap:hover iframe {
+        filter: saturate(1);
+    }
+
+
+    /* =====================================================
+       CTA
+    ===================================================== */
+
+    .cta-section {
+        padding: 100px 5%;
+
+        background:
+            linear-gradient(
+                rgba(15,17,22,.91),
+                rgba(15,17,22,.91)
+            ),
+            url("https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1800&q=85");
+
+        background-size: cover;
+        background-position: center;
+
+        text-align: center;
+
+        color: white;
+
+        background-attachment: fixed;
+    }
+
+    .cta-section h2 {
+        font-family: "Playfair Display",serif;
+
+        font-size: clamp(36px,5vw,58px);
+
+        margin-bottom: 15px;
+    }
+
+    .cta-section p {
+        max-width: 600px;
+
+        margin: 0 auto 30px;
+
+        color: #c7c7c7;
+
+        line-height: 1.8;
+        font-size: 14px;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+        background: #080a0f;
+        color: white;
+
+        padding: 65px 5% 25px;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .footer-top {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr 1fr;
+
+        gap: 50px;
+
+        padding-bottom: 50px;
+
+        border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .footer-logo {
+        display: flex;
+        flex-direction: column;
+
+        line-height: 1;
+
+        margin-bottom: 20px;
+    }
+
+    .footer-logo-main {
+        font-family: "Playfair Display",serif;
+
+        font-size: 27px;
+        font-weight: 700;
+
+        letter-spacing: 2px;
+    }
+
+    .footer-logo-main span {
+        color: #b58b43;
+    }
+
+    .footer-logo small {
+        font-size: 8px;
+        font-weight: 600;
+
+        letter-spacing: 2.5px;
+
+        color: #777;
+
+        margin-top: 5px;
+    }
+
+    .footer-about {
+        max-width: 360px;
+
+        color: #888;
+
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .footer-col h4 {
+        color: white;
+
+        font-size: 10px;
+
+        letter-spacing: 2px;
+        text-transform: uppercase;
+
+        margin-bottom: 20px;
+    }
+
+    .footer-col a {
+        display: block;
+
+        color: #888;
+
+        font-size: 12px;
+
+        margin-bottom: 11px;
+
+        transition:
+            color .25s ease,
+            transform .25s ease;
+    }
+
+    .footer-col a:hover {
+        color: #d6a85c;
+        transform: translateX(5px);
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+
+        gap: 20px;
+
+        padding-top: 25px;
+
+        color: #666;
+
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       WHATSAPP
+    ===================================================== */
+
+    .whatsapp-float {
+        position: fixed;
+
+        right: 22px;
+        bottom: 22px;
+
+        width: 57px;
+        height: 57px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #25D366;
+        color: white;
+
+        font-size: 22px;
+
+        box-shadow: 0 10px 30px rgba(0,0,0,.2);
+
+        z-index: 9998;
+
+        transition:
+            transform .3s ease,
+            box-shadow .3s ease;
+
+        animation: whatsappPulse 2.4s infinite;
+    }
+
+    .whatsapp-float:hover {
+        transform: scale(1.12);
+        box-shadow: 0 15px 40px rgba(37,211,102,.35);
+        animation: none;
+    }
+
+    @keyframes whatsappPulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37,211,102,.35);
         }
 
-        nav.scrolled {
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        70% {
+            box-shadow: 0 0 0 14px rgba(37,211,102,0);
         }
 
-        /* =========================
-           LOGO
-        ========================= */
-
-        .logo {
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            line-height: 1;
-            cursor: pointer;
+        100% {
+            box-shadow: 0 0 0 0 rgba(37,211,102,0);
         }
+    }
 
-        .logo-main {
-            font-family: "Playfair Display", serif;
-            font-size: 25px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #222;
-            white-space: nowrap;
-        }
 
-        .logo-main span {
-            color: #b58b43;
-        }
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
 
-        .logo small {
-            display: block;
-            font-family: "DM Sans", sans-serif;
-            font-size: 8px;
-            font-weight: 600;
-            letter-spacing: 2.5px;
-            color: #777;
-            margin-top: 5px;
-            margin-left: 1px;
-            white-space: nowrap;
-        }
-
-        /* =========================
-           NAV LINKS
-        ========================= */
+    @media (max-width: 1050px) {
 
         .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 27px;
-            list-style: none;
+            gap: 17px;
         }
 
         .nav-links a {
-            position: relative;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #444;
-            transition: 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -7px;
-            width: 0;
-            height: 2px;
-            background: #b58b43;
-            transition: 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #b58b43;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .admin-link {
-            color: #b58b43 !important;
-        }
-
-        .menu-btn {
-            display: none;
-            border: none;
-            background: none;
-            font-size: 27px;
-            cursor: pointer;
-            color: #222;
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 760px;
-            margin-top: 76px;
-
-            position: relative;
-
-            display: flex;
-            align-items: center;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(5, 7, 10, 0.88) 0%,
-                    rgba(5, 7, 10, 0.67) 45%,
-                    rgba(5, 7, 10, 0.20) 100%
-                ),
-                url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=90");
-
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-content {
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
-            color: white;
-            padding: 80px 0;
-        }
-
-        .hero-small {
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 4px;
-            color: #d6b36d;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .hero h1 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(48px, 7vw, 88px);
-            line-height: 0.98;
-            max-width: 750px;
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 span {
-            color: #d6a85c;
-        }
-
-        .hero p {
-            max-width: 570px;
-            font-size: 17px;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.82);
-            margin-bottom: 35px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-height: 50px;
-            padding: 0 25px;
-
-            border-radius: 3px;
-
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1.3px;
-            text-transform: uppercase;
-
-            transition: 0.3s ease;
-        }
-
-        .btn-gold {
-            background: #b58b43;
-            color: white;
-        }
-
-        .btn-gold:hover {
-            background: #9e7739;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            border: 1px solid rgba(255, 255, 255, 0.55);
-            color: white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: #222;
-        }
-
-        /* =========================
-           COMMON
-        ========================= */
-
-        section {
-            padding: 100px 5%;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .section-label {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #b58b43;
-            text-transform: uppercase;
-            margin-bottom: 13px;
-        }
-
-        .section-title {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(34px, 5vw, 54px);
-            line-height: 1.1;
-            margin-bottom: 16px;
-            color: #171717;
-        }
-
-        .section-subtitle {
-            max-width: 650px;
-            color: #6d6d6d;
-            line-height: 1.8;
-            font-size: 15px;
-        }
-
-        /* =========================
-           CARS
-        ========================= */
-
-        .cars-section {
-            background: #f7f6f2;
-        }
-
-        .cars-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 30px;
-            margin-bottom: 45px;
-        }
-
-        .filters {
-            display: flex;
-            flex-direction: column;
-            gap: 13px;
-            margin-bottom: 45px;
-        }
-
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filter-label {
-            width: 85px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #888;
-        }
-
-        .filter-btn {
-            border: 1px solid #ddd9d0;
-            background: transparent;
-            color: #555;
-            padding: 9px 15px;
-            border-radius: 3px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.25s ease;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: #b58b43;
-            border-color: #b58b43;
-            color: white;
+            font-size: 9px;
         }
 
         .car-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .car-card {
-            background: white;
-            border: 1px solid #e7e3dc;
-            overflow: hidden;
-            transition: 0.35s ease;
-        }
-
-        .car-card:hover {
-            transform: translateY(-7px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.09);
-        }
-
-        .car-image-wrap {
-            position: relative;
-            height: 270px;
-            overflow: hidden;
-            background: #eee;
-        }
-
-        .car-image-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: 0.5s ease;
-        }
-
-        .car-card:hover .car-image-wrap img {
-            transform: scale(1.05);
-        }
-
-        .available {
-            position: absolute;
-            top: 14px;
-            left: 14px;
-
-            padding: 7px 10px;
-
-            background: rgba(255, 255, 255, 0.93);
-            color: #333;
-
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .car-content {
-            padding: 23px;
-        }
-
-        .car-brand {
-            font-size: 10px;
-            font-weight: 700;
-            color: #b58b43;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .car-name {
-            font-family: "Playfair Display", serif;
-            font-size: 25px;
-            color: #171717;
-            margin-bottom: 8px;
-        }
-
-        .car-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 17px;
-        }
-
-        .car-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px 15px;
-
-            padding: 15px 0;
-
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-
-            color: #777;
-            font-size: 11px;
-        }
-
-        .car-description {
-            font-size: 12px;
-            line-height: 1.7;
-            color: #777;
-            margin: 15px 0;
-        }
-
-        .car-actions {
-            display: flex;
-            gap: 9px;
-        }
-
-        .car-btn {
-            flex: 1;
-            height: 43px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border: 1px solid #ddd;
-            background: white;
-
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-
-            transition: 0.25s ease;
-        }
-
-        .car-btn:hover {
-            border-color: #b58b43;
-            color: #b58b43;
-        }
-
-        .car-btn.primary {
-            background: #b58b43;
-            color: white;
-            border-color: #b58b43;
-        }
-
-        .car-btn.primary:hover {
-            background: #9e7739;
-            color: white;
-        }
-
-        .no-cars {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 70px 20px;
-            background: white;
-            border: 1px solid #e5e1d9;
-            color: #777;
-        }
-
-        /* =========================
-           SERVICES
-        ========================= */
-
-        .services-section {
-            background: #11141b;
-            color: white;
-        }
-
-        .services-section .section-title {
-            color: white;
-        }
-
-        .services-section .section-subtitle {
-            color: #a9abb1;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .service-card {
-            padding: 42px;
-            background: #181c24;
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            transition: 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(181, 139, 67, 0.5);
-        }
-
-        .service-number {
-            color: #b58b43;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 28px;
-        }
-
-        .service-card h3 {
-            font-family: "Playfair Display", serif;
-            font-size: 30px;
-            margin-bottom: 15px;
-        }
-
-        .service-card p {
-            color: #a9abb1;
-            font-size: 14px;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        .service-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            color: #d6a85c;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1.3px;
-            text-transform: uppercase;
-        }
-
-        /* =========================
-           SOCIAL
-        ========================= */
-
-        .social-section {
-            background: #eeeae2;
-            text-align: center;
-        }
-
-        .social-section .section-subtitle {
-            margin: 0 auto;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .social-btn {
-            min-width: 170px;
-            padding: 14px 22px;
-
-            background: white;
-            border: 1px solid #ded9cf;
-
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-
-            transition: 0.3s ease;
-        }
-
-        .social-btn:hover {
-            background: #b58b43;
-            border-color: #b58b43;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* =========================
-           PAPERWORK
-        ========================= */
-
-        .paperwork-section {
-            background: #f7f6f2;
+            grid-template-columns: repeat(2,1fr);
         }
 
         .paperwork-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-top: 50px;
+            grid-template-columns: repeat(2,1fr);
+        }
+    }
+
+
+    @media (max-width: 850px) {
+
+        nav {
+            padding: 0 25px;
         }
 
-        .paper-card {
-            padding: 28px;
+        .menu-btn {
+            display: block;
+        }
+
+        .nav-links {
+            position: absolute;
+
+            top: 76px;
+            left: 0;
+
+            width: 100%;
+
+            display: none;
+            flex-direction: column;
+            align-items: flex-start;
+
+            padding: 25px;
+
             background: white;
-            border: 1px solid #e6e1d8;
-            transition: 0.3s ease;
+
+            box-shadow: 0 15px 30px rgba(0,0,0,.08);
         }
 
-        .paper-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
-        }
-
-        .paper-icon {
-            width: 43px;
-            height: 43px;
-
+        .nav-links.open {
             display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #f1eadf;
-            color: #b58b43;
-
-            font-size: 15px;
-            font-weight: 700;
-
-            margin-bottom: 20px;
         }
 
-        .paper-card h3 {
-            font-family: "Playfair Display", serif;
-            font-size: 22px;
-            margin-bottom: 9px;
+        .nav-links li {
+            width: 100%;
+            animation: none;
         }
 
-        .paper-card p {
-            color: #777;
-            font-size: 12px;
-            line-height: 1.7;
+        .nav-links a {
+            display: block;
+
+            padding: 10px 0;
+
+            font-size: 11px;
         }
 
-        /* =========================
-           LOCATION
-        ========================= */
-
-        .location-section {
-            background: #11141b;
-            color: white;
+        .hero {
+            min-height: 680px;
         }
 
-        .location-section .section-title {
-            color: white;
+        .hero-content {
+            padding: 70px 0;
         }
 
-        .location-section .section-subtitle {
-            color: #aaa;
+        .cars-header {
+            display: block;
         }
 
         .location-grid {
-            display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
-            gap: 40px;
-            margin-top: 50px;
-            align-items: stretch;
-        }
-
-        .location-info {
-            padding: 38px;
-            background: #181c24;
-        }
-
-        .location-item {
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .location-item:first-child {
-            padding-top: 0;
-        }
-
-        .location-item:last-child {
-            border-bottom: none;
-        }
-
-        .location-item-label {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #b58b43;
-            margin-bottom: 7px;
-        }
-
-        .location-item p {
-            color: #ddd;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .map-wrap {
-            min-height: 450px;
-            overflow: hidden;
-        }
-
-        .map-wrap iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 450px;
-            border: 0;
-        }
-
-        /* =========================
-           CTA
-        ========================= */
-
-        .cta-section {
-            padding: 100px 5%;
-            background:
-                linear-gradient(
-                    rgba(15, 17, 22, 0.91),
-                    rgba(15, 17, 22, 0.91)
-                ),
-                url("https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=1800&q=85");
-
-            background-size: cover;
-            background-position: center;
-
-            text-align: center;
-            color: white;
-        }
-
-        .cta-section h2 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(36px, 5vw, 58px);
-            margin-bottom: 15px;
-        }
-
-        .cta-section p {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            color: #c7c7c7;
-            line-height: 1.8;
-            font-size: 14px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            background: #080a0f;
-            color: white;
-            padding: 65px 5% 25px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
+            grid-template-columns: 1fr;
         }
 
         .footer-top {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 50px;
-            padding-bottom: 50px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            grid-template-columns: 1fr 1fr;
         }
 
-        .footer-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            line-height: 1;
-            margin-bottom: 20px;
+        .footer-top > div:first-child {
+            grid-column: 1/-1;
         }
 
-        .footer-logo-main {
-            font-family: "Playfair Display", serif;
-            font-size: 27px;
-            font-weight: 700;
+        .cta-section {
+            background-attachment: scroll;
+        }
+    }
+
+
+    @media (max-width: 700px) {
+
+        section {
+            padding: 75px 5%;
+        }
+
+        .logo-main {
+            font-size: 21px;
+            letter-spacing: 1.5px;
+        }
+
+        .logo small {
+            font-size: 7px;
             letter-spacing: 2px;
         }
 
-        .footer-logo-main span {
-            color: #b58b43;
+        .hero {
+            min-height: 650px;
+
+            background-size: cover;
+            animation: none;
         }
 
-        .footer-logo small {
-            font-size: 8px;
-            font-weight: 600;
-            letter-spacing: 2.5px;
-            color: #777;
-            margin-top: 5px;
+        .hero h1 {
+            font-size: 49px;
         }
 
-        .footer-about {
-            max-width: 360px;
-            color: #888;
-            font-size: 13px;
-            line-height: 1.8;
+        .hero p {
+            font-size: 14px;
         }
 
-        .footer-col h4 {
-            color: white;
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+        .car-grid {
+            grid-template-columns: 1fr;
         }
 
-        .footer-col a {
-            display: block;
-            color: #888;
-            font-size: 12px;
-            margin-bottom: 11px;
-            transition: 0.25s ease;
+        .services-grid {
+            grid-template-columns: 1fr;
         }
 
-        .footer-col a:hover {
-            color: #d6a85c;
+        .paperwork-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-top {
+            grid-template-columns: 1fr;
+            gap: 35px;
+        }
+
+        .footer-top > div:first-child {
+            grid-column: auto;
         }
 
         .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            padding-top: 25px;
-            color: #666;
-            font-size: 10px;
+            flex-direction: column;
         }
 
-        /* =========================
-           WHATSAPP FLOAT
-        ========================= */
+        .filter-label {
+            width: 100%;
+            margin-bottom: 2px;
+        }
+
+        .service-card {
+            padding: 30px;
+        }
+
+        .location-info {
+            padding: 30px;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+        }
+    }
+
+
+    @media (max-width: 450px) {
+
+        nav {
+            height: 70px;
+        }
+
+        .nav-links {
+            top: 70px;
+        }
+
+        .hero {
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 43px;
+        }
+
+        .hero-buttons {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .car-actions {
+            flex-direction: column;
+        }
+
+        .social-buttons {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .social-btn {
+            width: 100%;
+        }
 
         .whatsapp-float {
-            position: fixed;
-            right: 22px;
-            bottom: 22px;
+            right: 15px;
+            bottom: 15px;
 
-            width: 57px;
-            height: 57px;
+            width: 52px;
+            height: 52px;
+        }
+    }
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
-            border-radius: 50%;
+    /* =====================================================
+       REDUCED MOTION
+    ===================================================== */
 
-            background: #25D366;
-            color: white;
+    @media (prefers-reduced-motion: reduce) {
 
-            font-size: 22px;
-
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
-            z-index: 9998;
-
-            transition: 0.3s ease;
+        *,
+        *::before,
+        *::after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: .01ms !important;
         }
 
-        .whatsapp-float:hover {
-            transform: scale(1.08);
+        body {
+            opacity: 1;
         }
+    }
 
-        /* =========================
-           HIDDEN CLASS
-        ========================= */
+</style>
+```
 
-        .car-card.hidden {
-            display: none;
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 1050px) {
-
-            .nav-links {
-                gap: 17px;
-            }
-
-            .nav-links a {
-                font-size: 9px;
-            }
-
-            .car-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .paperwork-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 850px) {
-
-            nav {
-                padding: 0 25px;
-            }
-
-            .menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 76px;
-                left: 0;
-                width: 100%;
-
-                display: none;
-                flex-direction: column;
-                align-items: flex-start;
-
-                padding: 25px;
-
-                background: white;
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 10px 0;
-                font-size: 11px;
-            }
-
-            .hero {
-                min-height: 680px;
-            }
-
-            .hero-content {
-                padding: 70px 0;
-            }
-
-            .cars-header {
-                display: block;
-            }
-
-            .location-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-top > div:first-child {
-                grid-column: 1 / -1;
-            }
-        }
-
-        @media (max-width: 700px) {
-
-            section {
-                padding: 75px 5%;
-            }
-
-            .logo-main {
-                font-size: 21px;
-                letter-spacing: 1.5px;
-            }
-
-            .logo small {
-                font-size: 7px;
-                letter-spacing: 2px;
-                margin-top: 4px;
-            }
-
-            .hero {
-                min-height: 650px;
-            }
-
-            .hero h1 {
-                font-size: 49px;
-            }
-
-            .hero p {
-                font-size: 14px;
-            }
-
-            .car-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .paperwork-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                grid-template-columns: 1fr;
-                gap: 35px;
-            }
-
-            .footer-top > div:first-child {
-                grid-column: auto;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-            }
-
-            .filter-label {
-                width: 100%;
-                margin-bottom: 2px;
-            }
-
-            .service-card {
-                padding: 30px;
-            }
-
-            .location-info {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 450px) {
-
-            nav {
-                height: 70px;
-            }
-
-            .nav-links {
-                top: 70px;
-            }
-
-            .hero {
-                margin-top: 70px;
-            }
-
-            .hero h1 {
-                font-size: 43px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .car-actions {
-                flex-direction: column;
-            }
-
-            .social-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .social-btn {
-                width: 100%;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
-    <!-- =========================
-         NAVBAR
-    ========================== -->
+```
+<!-- =====================================================
+     LOADER
+===================================================== -->
 
-    <nav id="navbar">
+<div class="page-loader" id="pageLoader">
 
-        <a href="/" class="logo">
-            <div class="logo-main">
-                KB <span>MOTORS</span>
-            </div>
+    <div class="loader-inner">
 
-            <small>EST. 1985</small>
-        </a>
+        <div class="loader-logo">
+            KB <span>MOTORS</span>
+        </div>
 
-        <button class="menu-btn" id="menuBtn" aria-label="Open Menu">
-            ☰
-        </button>
+        <div class="loader-line"></div>
 
-        <ul class="nav-links" id="navLinks">
+    </div>
 
-            <li>
-                <a href="#home">HOME</a>
-            </li>
-
-            <li>
-                <a href="#cars">FIND A CAR</a>
-            </li>
-
-            <li>
-                <a href="#cars">CARS</a>
-            </li>
-
-            <li>
-                <a href="#services">SERVICES</a>
-            </li>
-
-            <li>
-                <a href="#paperwork">PAPERWORK</a>
-            </li>
-
-            <li>
-                <a href="#location">LOCATION</a>
-            </li>
-
-            <li>
-                <a href="https://www.instagram.com/k.b.motors1985/"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    INSTAGRAM
-                </a>
-            </li>
-
-            <li>
-                <a href="/admin/" class="admin-link">
-                    ADMIN
-                </a>
-            </li>
-
-        </ul>
-
-    </nav>
+</div>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-    <section class="hero" id="home">
+<nav id="navbar">
 
-        <div class="hero-content">
+    <a href="/" class="logo">
 
-            <div class="hero-small">
-                <h2>KB MOTORS</h2>
-            </div>
+        <div class="logo-main">
+            KB <span>MOTORS</span>
+        </div>
 
-            <h1>
-                Trusted <span>Pre-Owned</span> Cars.
-            </h1>
+        <small>
+            EST. 1985
+        </small>
 
-            <p>
-                Find quality second-hand cars with transparent information,
-                reliable service and complete assistance from selection to paperwork.
-            </p>
+    </a>
 
-            <div class="hero-buttons">
 
-                <a href="#cars" class="btn btn-gold">
-                    Explore Cars
-                </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open Menu">
+        ☰
+    </button>
 
-                <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20looking%20for%20a%20pre-owned%20car."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-outline">
-                    WhatsApp Us
-                </a>
+
+    <ul class="nav-links" id="navLinks">
+
+        <li>
+            <a href="#home">HOME</a>
+        </li>
+
+        <li>
+            <a href="#cars">FIND A CAR</a>
+        </li>
+
+        <li>
+            <a href="#cars">CARS</a>
+        </li>
+
+        <li>
+            <a href="#services">SERVICES</a>
+        </li>
+
+        <li>
+            <a href="#paperwork">PAPERWORK</a>
+        </li>
+
+        <li>
+            <a href="#location">LOCATION</a>
+        </li>
+
+        <li>
+            <a href="https://www.instagram.com/k.b.motors1985/"
+               target="_blank"
+               rel="noopener noreferrer">
+                INSTAGRAM
+            </a>
+        </li>
+
+        <li>
+            <a href="/admin/" class="admin-link">
+                ADMIN
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+            KB MOTORS
+        </div>
+
+        <h1>
+            Trusted <span>Pre-Owned</span> Cars.
+        </h1>
+
+        <p>
+            Find quality second-hand cars with transparent information,
+            reliable service and complete assistance from selection to paperwork.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#cars" class="btn btn-gold">
+                Explore Cars
+            </a>
+
+            <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20looking%20for%20a%20pre-owned%20car."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-outline">
+                WhatsApp Us
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CARS
+===================================================== -->
+
+<section class="cars-section" id="cars">
+
+    <div class="container">
+
+        <div class="cars-header reveal">
+
+            <div>
+
+                <div class="section-label">
+                    Our Collection
+                </div>
+
+                <h2 class="section-title">
+                    Find Your Next Car
+                </h2>
+
+                <p class="section-subtitle">
+                    Browse our available pre-owned cars and choose according
+                    to fuel type, body type and your requirements.
+                </p>
 
             </div>
 
         </div>
 
-    </section>
 
+        <div class="filters reveal">
 
-    <!-- =========================
-         CARS
-    ========================== -->
+            <div class="filter-group">
 
-    <section class="cars-section" id="cars">
-
-        <div class="container">
-
-            <div class="cars-header">
-
-                <div>
-
-                    <div class="section-label">
-                        Our Collection
-                    </div>
-
-                    <h2 class="section-title">
-                        Find Your Next Car
-                    </h2>
-
-                    <p class="section-subtitle">
-                        Browse our available pre-owned cars and choose according
-                        to fuel type, body type and your requirements.
-                    </p>
-
+                <div class="filter-label">
+                    Fuel
                 </div>
+
+                <button class="filter-btn active"
+                        data-filter="fuel"
+                        data-value="all">
+                    All
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="fuel"
+                        data-value="Petrol">
+                    Petrol
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="fuel"
+                        data-value="Diesel">
+                    Diesel
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="fuel"
+                        data-value="Electric">
+                    Electric
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="fuel"
+                        data-value="Hybrid">
+                    Hybrid
+                </button>
+
+                <button class="filter-btn"
+                        data-filter="fuel"
+                        data-value="CNG">
+                    CNG
+                </button>
 
             </div>
 
 
-            <!-- FILTERS -->
+            <div class="filter-group">
 
-            <div class="filters">
-
-                <div class="filter-group">
-
-                    <div class="filter-label">
-                        Fuel
-                    </div>
-
-                    <button class="filter-btn active" data-filter="fuel" data-value="all">
-                        All
-                    </button>
-
-                    <button class="filter-btn" data-filter="fuel" data-value="Petrol">
-                        Petrol
-                    </button>
-
-                    <button class="filter-btn" data-filter="fuel" data-value="Diesel">
-                        Diesel
-                    </button>
-
-                    <button class="filter-btn" data-filter="fuel" data-value="Electric">
-                        Electric
-                    </button>
-
-                    <button class="filter-btn" data-filter="fuel" data-value="Hybrid">
-                        Hybrid
-                    </button>
-
-                    <button class="filter-btn" data-filter="fuel" data-value="CNG">
-                        CNG
-                    </button>
-
+                <div class="filter-label">
+                    Body
                 </div>
 
+                <button class="filter-btn active"
+                        data-filter="body"
+                        data-value="all">
+                    All
+                </button>
 
-                <div class="filter-group">
+                <button class="filter-btn"
+                        data-filter="body"
+                        data-value="SUV">
+                    SUV
+                </button>
 
-                    <div class="filter-label">
-                        Body
-                    </div>
+                <button class="filter-btn"
+                        data-filter="body"
+                        data-value="Sedan">
+                    Sedan
+                </button>
 
-                    <button class="filter-btn active" data-filter="body" data-value="all">
-                        All
-                    </button>
+                <button class="filter-btn"
+                        data-filter="body"
+                        data-value="Hatchback">
+                    Hatchback
+                </button>
 
-                    <button class="filter-btn" data-filter="body" data-value="SUV">
-                        SUV
-                    </button>
+                <button class="filter-btn"
+                        data-filter="body"
+                        data-value="Coupe">
+                    Coupe
+                </button>
 
-                    <button class="filter-btn" data-filter="body" data-value="Sedan">
-                        Sedan
-                    </button>
+                <button class="filter-btn"
+                        data-filter="body"
+                        data-value="Convertible">
+                    Convertible
+                </button>
 
-                    <button class="filter-btn" data-filter="body" data-value="Hatchback">
-                        Hatchback
-                    </button>
-
-                    <button class="filter-btn" data-filter="body" data-value="Coupe">
-                        Coupe
-                    </button>
-
-                    <button class="filter-btn" data-filter="body" data-value="Convertible">
-                        Convertible
-                    </button>
-
-                    <button class="filter-btn" data-filter="body" data-value="MPV">
-                        MPV
-                    </button>
-
-                </div>
+                <button class="filter-btn"
+                        data-filter="body"
+                        data-value="MPV">
+                    MPV
+                </button>
 
             </div>
 
+        </div>
 
-            <!-- CAR GRID -->
 
-            <div class="car-grid" id="carGrid">
+        <!-- CAR GRID -->
 
-                {% for car in cars %}
+        <div class="car-grid" id="carGrid">
 
-                <article
-                    class="car-card"
-                    data-fuel="{{ car.fuel_type }}"
-                    data-body="{{ car.body_type }}"
-                >
+            {% for car in cars %}
 
-                    <div class="car-image-wrap">
+            <article class="car-card"
+                     data-fuel="{{ car.fuel_type }}"
+                     data-body="{{ car.body_type }}">
 
-                        {% if car.image_url %}
+                <div class="car-image-wrap">
 
-                        <img
-                            src="{{ car.image_url }}"
-                            alt="{{ car.brand }} {{ car.model_name }}"
-                            loading="lazy"
-                            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1000&q=85';"
-                        >
+                    {% if car.image_url %}
 
-                        {% else %}
+                    <img src="{{ car.image_url }}"
+                         alt="{{ car.brand }} {{ car.model_name }}"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1000&q=85';">
 
-                        <img
-                            src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1000&q=85"
-                            alt="KB MOTORS"
-                            loading="lazy"
-                        >
+                    {% else %}
 
-                        {% endif %}
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1000&q=85"
+                         alt="KB MOTORS"
+                         loading="lazy">
 
-                        {% if car.is_available %}
+                    {% endif %}
 
-                        <div class="available">
-                            Available
-                        </div>
 
-                        {% else %}
+                    {% if car.is_available %}
 
-                        <div class="available">
-                            Sold
-                        </div>
-
-                        {% endif %}
-
+                    <div class="available">
+                        Available
                     </div>
 
+                    {% else %}
 
-                    <div class="car-content">
-
-                        <div class="car-brand">
-                            {{ car.brand }}
-                        </div>
-
-                        <h3 class="car-name">
-                            {{ car.model_name }}
-                        </h3>
-
-                        <div class="car-price">
-                            ₹{{ car.price|floatformat:0 }}
-                        </div>
-
-
-                        <div class="car-details">
-
-                            <span>
-                                {{ car.year }}
-                            </span>
-
-                            <span>
-                                {{ car.fuel_type }}
-                            </span>
-
-                            <span>
-                                {{ car.body_type }}
-                            </span>
-
-                            <span>
-                                {{ car.transmission }}
-                            </span>
-
-                            <span>
-                                {{ car.mileage }} KM/L
-                            </span>
-
-                        </div>
-
-
-                        {% if car.description %}
-
-                        <p class="car-description">
-                            {{ car.description|truncatechars:100 }}
-                        </p>
-
-                        {% endif %}
-
-
-                        <div class="car-actions">
-
-                            <a
-                                href="{% url 'car_detail' car.id %}"
-                                class="car-btn"
-                            >
-                                View Details
-                            </a>
-
-                            <a
-                                href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20the%20{{ car.brand|urlencode }}%20{{ car.model_name|urlencode }}."
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="car-btn primary"
-                            >
-                                Enquire
-                            </a>
-
-                        </div>
-
+                    <div class="available">
+                        Sold
                     </div>
 
-                </article>
+                    {% endif %}
 
-                {% empty %}
+                </div>
 
-                <div class="no-cars">
 
-                    <h3>
-                        No Cars Available
+                <div class="car-content">
+
+                    <div class="car-brand">
+                        {{ car.brand }}
+                    </div>
+
+                    <h3 class="car-name">
+                        {{ car.model_name }}
                     </h3>
 
-                    <p style="margin-top:10px;">
-                        New vehicles will be added soon.
+                    <div class="car-price">
+                        ₹{{ car.price|floatformat:0 }}
+                    </div>
+
+
+                    <div class="car-details">
+
+                        <span>{{ car.year }}</span>
+
+                        <span>{{ car.fuel_type }}</span>
+
+                        <span>{{ car.body_type }}</span>
+
+                        <span>{{ car.transmission }}</span>
+
+                        <span>{{ car.mileage }} KM/L</span>
+
+                    </div>
+
+
+                    {% if car.description %}
+
+                    <p class="car-description">
+                        {{ car.description|truncatechars:100 }}
                     </p>
+
+                    {% endif %}
+
+
+                    <div class="car-actions">
+
+                        <a href="{% url 'car_detail' car.id %}"
+                           class="car-btn">
+                            View Details
+                        </a>
+
+                        <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20the%20{{ car.brand|urlencode }}%20{{ car.model_name|urlencode }}."
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="car-btn primary">
+                            Enquire
+                        </a>
+
+                    </div>
 
                 </div>
 
-                {% endfor %}
+            </article>
+
+            {% empty %}
+
+            <div class="no-cars">
+
+                <h3>
+                    No Cars Available
+                </h3>
+
+                <p style="margin-top:10px;">
+                    New vehicles will be added soon.
+                </p>
 
             </div>
 
+            {% endfor %}
+
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         SERVICES
-    ========================== -->
+<!-- =====================================================
+     SERVICES
+===================================================== -->
 
-    <section class="services-section" id="services">
+<section class="services-section" id="services">
 
-        <div class="container">
+    <div class="container">
+
+        <div class="reveal">
 
             <div class="section-label">
                 What We Do
@@ -1498,133 +2162,123 @@
                 consultancy to help you throughout your car ownership journey.
             </p>
 
-
-            <div class="services-grid">
-
-
-                <!-- REPAIR -->
-
-                <div class="service-card">
-
-                    <div class="service-number">
-                        01 / REPAIR
-                    </div>
-
-                    <h3>
-                        Vehicle Repair
-                    </h3>
-
-                    <p>
-                        Get assistance with vehicle repair and maintenance.
-                        Contact KB MOTORS for repair-related requirements,
-                        servicing and general automotive support.
-                    </p>
-
-                    <a
-                        href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20your%20vehicle%20repair%20services."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="service-link"
-                    >
-                        WhatsApp for Repair →
-                    </a>
-
-                </div>
-
-
-                <!-- CONSULTANCY -->
-
-                <div class="service-card">
-
-                    <div class="service-number">
-                        02 / CONSULTANCY
-                    </div>
-
-                    <h3>
-                        Automotive Consultancy
-                    </h3>
-
-                    <p>
-                        Need guidance before buying or selling a vehicle?
-                        Get automotive consultancy and practical assistance
-                        according to your requirements.
-                    </p>
-
-                    <a
-                        href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20your%20automotive%20consultancy%20services."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="service-link"
-                    >
-                        WhatsApp for Consultancy →
-                    </a>
-
-                </div>
-
-            </div>
-
         </div>
 
-    </section>
 
+        <div class="services-grid">
 
-    <!-- =========================
-         INSTAGRAM / WHATSAPP
-    ========================== -->
+            <div class="service-card reveal">
 
-    <section class="social-section">
+                <div class="service-number">
+                    01 / REPAIR
+                </div>
 
-        <div class="container">
+                <h3>
+                    Vehicle Repair
+                </h3>
 
-            <div class="section-label">
-                Connect With Us
-            </div>
+                <p>
+                    Get assistance with vehicle repair and maintenance.
+                    Contact KB MOTORS for repair-related requirements,
+                    servicing and general automotive support.
+                </p>
 
-            <h2 class="section-title">
-                Stay Connected
-            </h2>
-
-            <p class="section-subtitle">
-                Follow KB MOTORS for new car updates, available vehicles,
-                services and more.
-            </p>
-
-
-            <div class="social-buttons">
-
-                <a
-                    href="https://www.instagram.com/k.b.motors1985/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-btn"
-                >
-                    Instagram
+                <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20your%20vehicle%20repair%20services."
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="service-link">
+                    WhatsApp for Repair →
                 </a>
 
+            </div>
 
-                <a
-                    href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20would%20like%20to%20know%20more%20about%20your%20cars."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-btn"
-                >
-                    WhatsApp
+
+            <div class="service-card reveal">
+
+                <div class="service-number">
+                    02 / CONSULTANCY
+                </div>
+
+                <h3>
+                    Automotive Consultancy
+                </h3>
+
+                <p>
+                    Need guidance before buying or selling a vehicle?
+                    Get automotive consultancy and practical assistance
+                    according to your requirements.
+                </p>
+
+                <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20am%20interested%20in%20your%20automotive%20consultancy%20services."
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="service-link">
+                    WhatsApp for Consultancy →
                 </a>
 
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         PAPERWORK
-    ========================== -->
+<!-- =====================================================
+     SOCIAL
+===================================================== -->
 
-    <section class="paperwork-section" id="paperwork">
+<section class="social-section">
 
-        <div class="container">
+    <div class="container reveal">
+
+        <div class="section-label">
+            Connect With Us
+        </div>
+
+        <h2 class="section-title">
+            Stay Connected
+        </h2>
+
+        <p class="section-subtitle">
+            Follow KB MOTORS for new car updates, available vehicles,
+            services and more.
+        </p>
+
+
+        <div class="social-buttons">
+
+            <a href="https://www.instagram.com/k.b.motors1985/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="social-btn">
+                Instagram
+            </a>
+
+            <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20would%20like%20to%20know%20more%20about%20your%20cars."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="social-btn">
+                WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PAPERWORK
+===================================================== -->
+
+<section class="paperwork-section" id="paperwork">
+
+    <div class="container">
+
+        <div class="reveal">
 
             <div class="section-label">
                 Complete Assistance
@@ -1639,131 +2293,81 @@
                 involved in buying and transferring a pre-owned vehicle.
             </p>
 
-
-            <div class="paperwork-grid">
-
-
-                <div class="paper-card">
-
-                    <div class="paper-icon">
-                        01
-                    </div>
-
-                    <h3>
-                        RC Transfer
-                    </h3>
-
-                    <p>
-                        Assistance with registration certificate transfer
-                        and related formalities.
-                    </p>
-
-                </div>
+        </div>
 
 
-                <div class="paper-card">
+        <div class="paperwork-grid">
 
-                    <div class="paper-icon">
-                        02
-                    </div>
+            <div class="paper-card reveal">
+                <div class="paper-icon">01</div>
+                <h3>RC Transfer</h3>
+                <p>
+                    Assistance with registration certificate transfer
+                    and related formalities.
+                </p>
+            </div>
 
-                    <h3>
-                        Insurance
-                    </h3>
+            <div class="paper-card reveal">
+                <div class="paper-icon">02</div>
+                <h3>Insurance</h3>
+                <p>
+                    Guidance regarding vehicle insurance and
+                    documentation requirements.
+                </p>
+            </div>
 
-                    <p>
-                        Guidance regarding vehicle insurance and
-                        documentation requirements.
-                    </p>
+            <div class="paper-card reveal">
+                <div class="paper-icon">03</div>
+                <h3>Sale Documents</h3>
+                <p>
+                    Assistance with required documents during
+                    vehicle purchase and sale.
+                </p>
+            </div>
 
-                </div>
+            <div class="paper-card reveal">
+                <div class="paper-icon">04</div>
+                <h3>Verification</h3>
+                <p>
+                    Support with checking vehicle-related documents
+                    and available information.
+                </p>
+            </div>
 
+            <div class="paper-card reveal">
+                <div class="paper-icon">05</div>
+                <h3>Loan Assistance</h3>
+                <p>
+                    Guidance for customers exploring financing
+                    options for their vehicle.
+                </p>
+            </div>
 
-                <div class="paper-card">
-
-                    <div class="paper-icon">
-                        03
-                    </div>
-
-                    <h3>
-                        Sale Documents
-                    </h3>
-
-                    <p>
-                        Assistance with required documents during
-                        vehicle purchase and sale.
-                    </p>
-
-                </div>
-
-
-                <div class="paper-card">
-
-                    <div class="paper-icon">
-                        04
-                    </div>
-
-                    <h3>
-                        Verification
-                    </h3>
-
-                    <p>
-                        Support with checking vehicle-related documents
-                        and available information.
-                    </p>
-
-                </div>
-
-
-                <div class="paper-card">
-
-                    <div class="paper-icon">
-                        05
-                    </div>
-
-                    <h3>
-                        Loan Assistance
-                    </h3>
-
-                    <p>
-                        Guidance for customers exploring financing
-                        options for their vehicle.
-                    </p>
-
-                </div>
-
-
-                <div class="paper-card">
-
-                    <div class="paper-icon">
-                        06
-                    </div>
-
-                    <h3>
-                        Delivery
-                    </h3>
-
-                    <p>
-                        Assistance in coordinating the vehicle delivery
-                        process after purchase.
-                    </p>
-
-                </div>
-
+            <div class="paper-card reveal">
+                <div class="paper-icon">06</div>
+                <h3>Delivery</h3>
+                <p>
+                    Assistance in coordinating the vehicle delivery
+                    process after purchase.
+                </p>
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         LOCATION
-    ========================== -->
+<!-- =====================================================
+     LOCATION
+===================================================== -->
 
-    <section class="location-section" id="location">
+<section class="location-section" id="location">
 
-        <div class="container">
+    <div class="container">
+
+        <div class="reveal">
 
             <div class="section-label">
                 Visit Us
@@ -1778,397 +2382,492 @@
                 repair services and automotive consultancy.
             </p>
 
-
-            <div class="location-grid">
-
-
-                <div class="location-info">
-
-
-                    <div class="location-item">
-
-                        <div class="location-item-label">
-                            Address
-                        </div>
-
-                        <p>
-                            Delhi, India
-                        </p>
-
-                    </div>
-
-
-                    <div class="location-item">
-
-                        <div class="location-item-label">
-                            Opening Hours
-                        </div>
-
-                        <p>
-                            Monday – Sunday<br>
-                            10:00 AM – 8:00 PM
-                        </p>
-
-                    </div>
-
-
-                    <div class="location-item">
-
-                        <div class="location-item-label">
-                            Phone / WhatsApp
-                        </div>
-
-                        <p>
-                            +91 93159 08281
-                        </p>
-
-                    </div>
-
-
-                    <div class="location-item">
-
-                        <div class="location-item-label">
-                            Instagram
-                        </div>
-
-                        <p>
-                            @k.b.motors1985
-                        </p>
-
-                    </div>
-
-
-                    <a
-                        href="https://wa.me/919315908281"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn btn-gold"
-                        style="margin-top:20px;"
-                    >
-                        Contact Us
-                    </a>
-
-                </div>
-
-
-                <div class="map-wrap">
-
-                    <iframe
-                        src="https://www.google.com/maps?q=Delhi%2C%20India&output=embed"
-                        loading="lazy"
-                        allowfullscreen=""
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-
-                </div>
-
-            </div>
-
         </div>
 
-    </section>
 
+        <div class="location-grid">
 
-    <!-- =========================
-         CTA
-    ========================== -->
+            <div class="location-info reveal-left">
 
-    <section class="cta-section">
+                <div class="location-item">
 
-        <div class="container">
-
-            <h2>
-                Looking For Your Next Car?
-            </h2>
-
-            <p>
-                Explore our available pre-owned cars or speak directly
-                with KB MOTORS for your requirements.
-            </p>
-
-            <div class="hero-buttons" style="justify-content:center;">
-
-                <a href="#cars" class="btn btn-gold">
-                    Browse Cars
-                </a>
-
-                <a
-                    href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20want%20to%20discuss%20a%20car."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-outline"
-                >
-                    WhatsApp Us
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer>
-
-        <div class="footer-container">
-
-            <div class="footer-top">
-
-
-                <div>
-
-                    <div class="footer-logo">
-
-                        <div class="footer-logo-main">
-                            KB <span>MOTORS</span>
-                        </div>
-
-                        <small>
-                            EST. 1985
-                        </small>
-
+                    <div class="location-item-label">
+                        Address
                     </div>
 
-                    <p class="footer-about">
-                        Trusted pre-owned cars, vehicle repair,
-                        automotive consultancy and complete
-                        paperwork assistance.
+                    <p>
+                        Delhi, India
                     </p>
 
                 </div>
 
 
-                <div class="footer-col">
+                <div class="location-item">
 
-                    <h4>
-                        Quick Links
-                    </h4>
+                    <div class="location-item-label">
+                        Opening Hours
+                    </div>
 
-                    <a href="#home">
-                        Home
-                    </a>
-
-                    <a href="#cars">
-                        Cars
-                    </a>
-
-                    <a href="#services">
-                        Services
-                    </a>
-
-                    <a href="#paperwork">
-                        Paperwork
-                    </a>
-
-                    <a href="#location">
-                        Location
-                    </a>
+                    <p>
+                        Monday – Sunday<br>
+                        10:00 AM – 8:00 PM
+                    </p>
 
                 </div>
 
 
-                <div class="footer-col">
+                <div class="location-item">
 
-                    <h4>
-                        Connect
-                    </h4>
+                    <div class="location-item-label">
+                        Phone / WhatsApp
+                    </div>
 
-                    <a
-                        href="https://www.instagram.com/k.b.motors1985/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                    <p>
+                        +91 93159 08281
+                    </p>
+
+                </div>
+
+
+                <div class="location-item">
+
+                    <div class="location-item-label">
                         Instagram
-                    </a>
+                    </div>
 
-                    <a
-                        href="https://wa.me/919315908281"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        WhatsApp
-                    </a>
-
-                    <a href="/admin/">
-                        Admin
-                    </a>
+                    <p>
+                        @k.b.motors1985
+                    </p>
 
                 </div>
+
+
+                <a href="https://wa.me/919315908281"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-gold"
+                   style="margin-top:20px;">
+                    Contact Us
+                </a>
 
             </div>
 
 
-            <div class="footer-bottom">
+            <div class="map-wrap reveal">
 
-                <span>
-                    © {% now "Y" %} KB MOTORS. All Rights Reserved.
-                </span>
-
-                <span>
-                    EST. 1985
-                </span>
+                <iframe
+                    src="https://www.google.com/maps?q=Delhi%2C%20India&output=embed"
+                    loading="lazy"
+                    allowfullscreen=""
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
 
             </div>
 
         </div>
 
-    </footer>
+    </div>
+
+</section>
 
 
-    <!-- =========================
-         FLOATING WHATSAPP
-    ========================== -->
+<!-- =====================================================
+     CTA
+===================================================== -->
 
-    <a
-        href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20would%20like%20to%20know%20more%20about%20your%20cars%20and%20services."
-        target="_blank"
-        rel="noopener noreferrer"
-        class="whatsapp-float"
-        aria-label="WhatsApp KB MOTORS"
-    >
-        ☎
-    </a>
+<section class="cta-section">
 
+    <div class="container reveal">
 
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
+        <h2>
+            Looking For Your Next Car?
+        </h2>
 
-    <script>
-
-        /* =========================
-           NAVBAR SCROLL
-        ========================== */
-
-        const navbar = document.getElementById("navbar");
-
-        window.addEventListener("scroll", function () {
-
-            if (window.scrollY > 30) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-
-        });
+        <p>
+            Explore our available pre-owned cars or speak directly
+            with KB MOTORS for your requirements.
+        </p>
 
 
-        /* =========================
-           MOBILE MENU
-        ========================== */
+        <div class="hero-buttons"
+             style="justify-content:center;">
 
-        const menuBtn = document.getElementById("menuBtn");
-        const navLinks = document.getElementById("navLinks");
+            <a href="#cars" class="btn btn-gold">
+                Browse Cars
+            </a>
 
-        menuBtn.addEventListener("click", function () {
+            <a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20want%20to%20discuss%20a%20car."
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-outline">
+                WhatsApp Us
+            </a>
 
-            navLinks.classList.toggle("open");
+        </div>
 
-            if (navLinks.classList.contains("open")) {
-                menuBtn.innerHTML = "✕";
-            } else {
-                menuBtn.innerHTML = "☰";
-            }
+    </div>
 
-        });
-
-
-        /* CLOSE MOBILE MENU */
-
-        document.querySelectorAll(".nav-links a").forEach(function (link) {
-
-            link.addEventListener("click", function () {
-
-                navLinks.classList.remove("open");
-                menuBtn.innerHTML = "☰";
-
-            });
-
-        });
+</section>
 
 
-        /* =========================
-           CAR FILTERS
-        ========================== */
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
-        let selectedFuel = "all";
-        let selectedBody = "all";
+<footer>
 
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const carCards = document.querySelectorAll(".car-card");
+    <div class="footer-container">
+
+        <div class="footer-top">
+
+            <div>
+
+                <div class="footer-logo">
+
+                    <div class="footer-logo-main">
+                        KB <span>MOTORS</span>
+                    </div>
+
+                    <small>
+                        EST. 1985
+                    </small>
+
+                </div>
+
+                <p class="footer-about">
+                    Trusted pre-owned cars, vehicle repair,
+                    automotive consultancy and complete
+                    paperwork assistance.
+                </p>
+
+            </div>
 
 
-        function filterCars() {
+            <div class="footer-col">
 
-            carCards.forEach(function (card) {
+                <h4>
+                    Quick Links
+                </h4>
 
-                const fuel = card.dataset.fuel;
-                const body = card.dataset.body;
+                <a href="#home">Home</a>
+                <a href="#cars">Cars</a>
+                <a href="#services">Services</a>
+                <a href="#paperwork">Paperwork</a>
+                <a href="#location">Location</a>
 
-                const fuelMatch =
-                    selectedFuel === "all" ||
-                    fuel === selectedFuel;
+            </div>
 
-                const bodyMatch =
-                    selectedBody === "all" ||
-                    body === selectedBody;
 
-                if (fuelMatch && bodyMatch) {
+            <div class="footer-col">
 
-                    card.classList.remove("hidden");
+                <h4>
+                    Connect
+                </h4>
 
-                } else {
+                <a href="https://www.instagram.com/k.b.motors1985/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Instagram
+                </a>
 
-                    card.classList.add("hidden");
+                <a href="https://wa.me/919315908281"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    WhatsApp
+                </a>
 
-                }
+                <a href="/admin/">
+                    Admin
+                </a>
 
-            });
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © {% now "Y" %} KB MOTORS. All Rights Reserved.
+            </span>
+
+            <span>
+                EST. 1985
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     FLOATING WHATSAPP
+===================================================== -->
+
+<a href="https://wa.me/919315908281?text=Hello%20KB%20MOTORS%2C%20I%20would%20like%20to%20know%20more%20about%20your%20cars%20and%20services."
+   target="_blank"
+   rel="noopener noreferrer"
+   class="whatsapp-float"
+   aria-label="WhatsApp KB MOTORS">
+    ☎
+</a>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    /* =====================================================
+       PAGE LOAD
+    ===================================================== */
+
+    window.addEventListener("load", function () {
+
+        document.body.classList.add("loaded");
+
+        setTimeout(function () {
+
+            document
+                .getElementById("pageLoader")
+                .classList.add("hide");
+
+        }, 700);
+
+    });
+
+
+    /* =====================================================
+       NAVBAR SCROLL
+    ===================================================== */
+
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 30) {
+
+            navbar.classList.add("scrolled");
+
+        } else {
+
+            navbar.classList.remove("scrolled");
 
         }
 
+    });
 
-        filterButtons.forEach(function (button) {
 
-            button.addEventListener("click", function () {
+    /* =====================================================
+       MOBILE MENU
+    ===================================================== */
 
-                const filterType = button.dataset.filter;
-                const value = button.dataset.value;
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
 
-                document
-                    .querySelectorAll(
-                        `.filter-btn[data-filter="${filterType}"]`
-                    )
-                    .forEach(function (btn) {
-                        btn.classList.remove("active");
-                    });
+    menuBtn.addEventListener("click", function () {
 
-                button.classList.add("active");
+        navLinks.classList.toggle("open");
 
-                if (filterType === "fuel") {
-                    selectedFuel = value;
-                }
+        if (navLinks.classList.contains("open")) {
 
-                if (filterType === "body") {
-                    selectedBody = value;
-                }
+            menuBtn.innerHTML = "✕";
 
-                filterCars();
+        } else {
 
-            });
+            menuBtn.innerHTML = "☰";
+
+        }
+
+    });
+
+
+    document.querySelectorAll(".nav-links a").forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            navLinks.classList.remove("open");
+
+            menuBtn.innerHTML = "☰";
 
         });
 
+    });
 
-        /* =========================
-           IMAGE FALLBACK
-        ========================== */
 
-        document.querySelectorAll(".car-image-wrap img").forEach(function (img) {
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    const revealElements =
+        document.querySelectorAll(".reveal, .reveal-left");
+
+    const revealObserver =
+        new IntersectionObserver(
+
+            function (entries, observer) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("active");
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+
+            {
+                threshold: 0.12
+            }
+
+        );
+
+
+    revealElements.forEach(function (element) {
+
+        revealObserver.observe(element);
+
+    });
+
+
+    /* =====================================================
+       CAR CARD STAGGER ANIMATION
+    ===================================================== */
+
+    const carCards =
+        document.querySelectorAll(".car-card");
+
+    carCards.forEach(function (card, index) {
+
+        setTimeout(function () {
+
+            card.classList.add("show");
+
+        }, 150 + (index * 120));
+
+    });
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    let selectedFuel = "all";
+    let selectedBody = "all";
+
+    const filterButtons =
+        document.querySelectorAll(".filter-btn");
+
+
+    function filterCars() {
+
+        carCards.forEach(function (card, index) {
+
+            const fuel =
+                card.dataset.fuel;
+
+            const body =
+                card.dataset.body;
+
+
+            const fuelMatch =
+                selectedFuel === "all" ||
+                fuel === selectedFuel;
+
+
+            const bodyMatch =
+                selectedBody === "all" ||
+                body === selectedBody;
+
+
+            if (fuelMatch && bodyMatch) {
+
+                card.classList.remove("hidden");
+
+                setTimeout(function () {
+
+                    card.classList.add("show");
+
+                }, index * 80);
+
+            } else {
+
+                card.classList.remove("show");
+
+                setTimeout(function () {
+
+                    card.classList.add("hidden");
+
+                }, 250);
+
+            }
+
+        });
+
+    }
+
+
+    filterButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const filterType =
+                button.dataset.filter;
+
+            const value =
+                button.dataset.value;
+
+
+            document
+                .querySelectorAll(
+                    `.filter-btn[data-filter="${filterType}"]`
+                )
+                .forEach(function (btn) {
+
+                    btn.classList.remove("active");
+
+                });
+
+
+            button.classList.add("active");
+
+
+            if (filterType === "fuel") {
+
+                selectedFuel = value;
+
+            }
+
+
+            if (filterType === "body") {
+
+                selectedBody = value;
+
+            }
+
+
+            filterCars();
+
+        });
+
+    });
+
+
+    /* =====================================================
+       IMAGE FALLBACK
+    ===================================================== */
+
+    document
+        .querySelectorAll(".car-image-wrap img")
+        .forEach(function (img) {
 
             img.addEventListener("error", function () {
 
@@ -2186,15 +2885,18 @@
         });
 
 
-        /* =========================
-           BUTTON CLICK EFFECT
-        ========================== */
+    /* =====================================================
+       BUTTON CLICK EFFECT
+    ===================================================== */
 
-        document.querySelectorAll(".btn, .car-btn, .social-btn").forEach(function (button) {
+    document
+        .querySelectorAll(".btn, .car-btn, .social-btn")
+        .forEach(function (button) {
 
             button.addEventListener("click", function () {
 
-                button.style.transform = "scale(0.98)";
+                button.style.transform =
+                    "scale(.97)";
 
                 setTimeout(function () {
 
@@ -2206,8 +2908,81 @@
 
         });
 
-    </script>
+
+    /* =====================================================
+       SMOOTH ANCHOR SCROLL
+    ===================================================== */
+
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach(function (anchor) {
+
+            anchor.addEventListener("click", function (event) {
+
+                const targetId =
+                    this.getAttribute("href");
+
+                if (targetId === "#") {
+                    return;
+                }
+
+                const target =
+                    document.querySelector(targetId);
+
+                if (!target) {
+                    return;
+                }
+
+                event.preventDefault();
+
+                const navbarHeight =
+                    navbar.offsetHeight;
+
+                const targetPosition =
+                    target.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    navbarHeight;
+
+                window.scrollTo({
+
+                    top: targetPosition,
+
+                    behavior: "smooth"
+
+                });
+
+            });
+
+        });
+
+
+    /* =====================================================
+       PARALLAX HERO
+    ===================================================== */
+
+    const hero =
+        document.querySelector(".hero");
+
+    window.addEventListener("scroll", function () {
+
+        if (window.innerWidth > 700) {
+
+            const scroll =
+                window.pageYOffset;
+
+            if (scroll < 800) {
+
+                hero.style.backgroundPosition =
+                    `center ${scroll * 0.18}px`;
+
+            }
+
+        }
+
+    });
+
+</script>
+```
 
 </body>
-
 </html>
