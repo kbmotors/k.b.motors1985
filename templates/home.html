@@ -1850,7 +1850,7 @@
     <div class="hero-content">
 
         <div class="hero-small">
-            KB MOTORS
+            <h2>KB MOTORS</h2>
         </div>
 
         <h1>
@@ -2082,7 +2082,19 @@
 
                         <span>{{ car.transmission }}</span>
 
-                        <span>{{ car.mileage }} KM/L</span>
+                        <span>{{ car.mileage }} KM/ Driven </span>
+
+                        <span>Reg. {{ car.registration_number }}</span>
+
+                        <span>
+                            Owner: {{ car.owner }}
+                        </span>
+
+                        {% if car.insurance_valid_upto %}
+                        <span>
+                            Insurance: {{ car.insurance_valid_upto|date:"d M Y" }}
+                        </span>
+                        {% endif %}
 
                     </div>
 

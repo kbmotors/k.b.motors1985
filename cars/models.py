@@ -72,6 +72,20 @@ class Car(models.Model):
     description = models.TextField(
         blank=True
     )
+    registration_number = models.CharField(
+    max_length=50,
+    blank=True
+    )
+
+    owner = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    insurance_valid_upto = models.DateField(
+        blank=True,
+        null=True
+    )
 
     image_url = models.URLField(blank=True, null=True)
 
