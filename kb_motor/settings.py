@@ -117,6 +117,10 @@ WSGI_APPLICATION = "kb_motor.wsgi.application"
 # DATABASE
 # ---------------------------------------------------------
 
+# ---------------------------------------------------------
+# DATABASE
+# ---------------------------------------------------------
+
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 if DATABASE_URL:

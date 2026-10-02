@@ -1,15 +1,3 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "kb_motor/wsgi.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "kb_motor/wsgi.py"
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }
