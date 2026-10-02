@@ -28,9 +28,13 @@ class Car(models.Model):
         ('CVT', 'CVT'),
     ]
 
-    brand = models.CharField(max_length=100)
+    brand = models.CharField(
+        max_length=100
+    )
 
-    model_name = models.CharField(max_length=100)
+    model_name = models.CharField(
+        max_length=100
+    )
 
     year = models.PositiveIntegerField()
 
@@ -72,9 +76,10 @@ class Car(models.Model):
     description = models.TextField(
         blank=True
     )
+
     registration_number = models.CharField(
-    max_length=50,
-    blank=True
+        max_length=50,
+        blank=True
     )
 
     owner = models.CharField(
@@ -87,7 +92,63 @@ class Car(models.Model):
         null=True
     )
 
-    image_url = models.URLField(blank=True, null=True)
+    # =========================
+    # VEHICLE PHOTOS
+    # =========================
+
+    image_url = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_2 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_3 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_4 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_5 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_6 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_7 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_8 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_9 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    image_url_10 = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    # =========================
+    # AVAILABILITY
+    # =========================
 
     is_available = models.BooleanField(
         default=True
