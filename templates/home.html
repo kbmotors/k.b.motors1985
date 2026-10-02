@@ -1744,6 +1744,58 @@
             opacity: 1;
         }
     }
+    .car-paperwork {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.paperwork-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.paperwork-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    color: #b58b43;
+}
+
+.paperwork-item strong {
+    font-size: 11px;
+    font-weight: 600;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* MOBILE */
+@media (max-width: 450px) {
+
+    .car-paperwork {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .paperwork-item {
+        padding-bottom: 8px;
+        border-bottom: 1px solid #f0eee9;
+    }
+
+    .paperwork-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+}
 
 </style>
 ```
@@ -2072,21 +2124,55 @@
                     </div>
 
 
-                    <div class="car-details">
+                   <div class="car-details">
 
-                        <span>{{ car.year }}</span>
+    <span>{{ car.year }}</span>
 
-                        <span>{{ car.fuel_type }}</span>
+    <span>{{ car.fuel_type }}</span>
 
-                        <span>{{ car.body_type }}</span>
+    <span>{{ car.body_type }}</span>
 
-                        <span>{{ car.transmission }}</span>
+    <span>{{ car.transmission }}</span>
 
-                        <span>{{ car.mileage }} KM/ Driven </span>
+    <span>{{ car.mileage }} KM/L</span>
 
-                        
+</div>
 
-                    </div>
+
+<!-- BACKEND PAPERWORK DETAILS -->
+<div class="car-paperwork">
+
+    <div class="paperwork-item">
+        <span class="paperwork-label">OWNER</span>
+
+        <strong>
+            {{ car.owner|default:"Not Available" }}
+        </strong>
+    </div>
+
+
+    <div class="paperwork-item">
+        <span class="paperwork-label">REGISTRATION</span>
+
+        <strong>
+            {{ car.registration_number|default:"Not Available" }}
+        </strong>
+    </div>
+
+
+    <div class="paperwork-item">
+        <span class="paperwork-label">INSURANCE</span>
+
+        <strong>
+            {% if car.insurance_valid_upto %}
+                Valid till {{ car.insurance_valid_upto|date:"d M Y" }}
+            {% else %}
+                Not Available
+            {% endif %}
+        </strong>
+    </div>
+
+</div>
 
 
                     {% if car.description %}
