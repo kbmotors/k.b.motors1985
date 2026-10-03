@@ -3,7 +3,7 @@ from .models import Car
 
 
 def home(request):
-    cars = Car.objects.filter(is_available=True)
+    cars = Car.objects.all()
 
     fuel = request.GET.get("fuel")
     body = request.GET.get("body")
