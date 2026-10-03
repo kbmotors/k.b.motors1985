@@ -832,7 +832,7 @@ section {
 
 
 /* =====================================================
-   SOLD STAMP
+   SOLD CIRCULAR STAMP
 ===================================================== */
 
 .sold-stamp {
@@ -843,27 +843,33 @@ section {
 
     z-index: 10;
 
-    transform: translate(-50%, -50%) rotate(-14deg);
+    width: 125px;
+    height: 125px;
 
-    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border: 4px solid #b21f1f;
+    border-radius: 50%;
 
     color: #b21f1f;
-
-    background: rgba(255,255,255,.90);
+    background: rgba(255, 255, 255, 0.88);
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 800;
 
-    letter-spacing: 4px;
+    letter-spacing: 2px;
 
     text-transform: uppercase;
 
+    transform: translate(-50%, -50%) rotate(-14deg);
+
     box-shadow:
-        0 4px 12px rgba(0,0,0,.20);
+        0 4px 12px rgba(0,0,0,.20),
+        inset 0 0 0 2px rgba(178,31,31,.15);
 
     opacity: .96;
 
@@ -874,10 +880,29 @@ section {
     animation: soldStamp .5s ease-out;
 }
 
+
+/* INNER CIRCLE EFFECT */
+
+.sold-stamp::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 7px;
+
+    border: 1.5px dashed #b21f1f;
+
+    border-radius: 50%;
+
+    opacity: .75;
+}
+
+
 @keyframes soldStamp {
 
     from {
         opacity: 0;
+
         transform:
             translate(-50%, -50%)
             rotate(-14deg)
@@ -886,6 +911,7 @@ section {
 
     to {
         opacity: .96;
+
         transform:
             translate(-50%, -50%)
             rotate(-14deg)
@@ -894,9 +920,7 @@ section {
 }
 
 
-/* =====================================================
-   SOLD CAR IMAGE
-===================================================== */
+/* SOLD CAR IMAGE */
 
 .car-card.sold .car-image-wrap img {
     filter: grayscale(30%) brightness(.72);
@@ -910,10 +934,49 @@ section {
     transform:
         translate(-50%, -50%)
         rotate(-14deg)
-        scale(1.03);
+        scale(1.04);
 }
 
 
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .sold-stamp {
+        width: 105px;
+        height: 105px;
+
+        font-size: 20px;
+
+        border-width: 3px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .sold-stamp::before {
+        inset: 6px;
+        border-width: 1px;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .sold-stamp {
+        width: 92px;
+        height: 92px;
+
+        font-size: 17px;
+
+        border-width: 3px;
+
+        letter-spacing: 1px;
+    }
+
+    .sold-stamp::before {
+        inset: 5px;
+    }
+}
 /* =====================================================
    CAR CONTENT
 ===================================================== */
